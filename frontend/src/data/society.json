@@ -1,0 +1,118 @@
+{
+  "university": "Delhi Technological University",
+  "category": "Technical & Professional Societies",
+  "societies": [
+    {
+      "id": 1,
+      "name": "IEEE DTU",
+      "full_form": "Institute of Electrical and Electronics Engineers",
+      "domain": ["Electronics", "Computer Science", "Technology"],
+      "description": "Professional technical society focusing on electronics, computing, research, and innovation."
+    },
+    {
+      "id": 2,
+      "name": "SAE DTU",
+      "full_form": "Society of Automotive Engineers",
+      "domain": ["Automotive", "Mechanical Engineering"],
+      "description": "Automotive engineering society promoting vehicle design, mobility, and industry exposure."
+    },
+    {
+      "id": 3,
+      "name": "ASME DTU",
+      "full_form": "American Society of Mechanical Engineers",
+      "domain": ["Mechanical Engineering", "Design"],
+      "description": "Mechanical engineering society focused on design, manufacturing, and technical development."
+    },
+    {
+      "id": 4,
+      "name": "AIMS DTU",
+      "full_form": "Association for Industrial & Management Studies",
+      "domain": ["Management", "Analytics", "Consulting"],
+      "description": "Society bridging management principles with engineering and analytics."
+    },
+    {
+      "id": 5,
+      "name": "EHAX",
+      "full_form": "Engineering & Hackathon Society",
+      "domain": ["Coding", "Hackathons", "Software Development"],
+      "description": "Technical society centered around hackathons, coding culture, and problem-solving."
+    },
+    {
+      "id": 6,
+      "name": "ASHRAE DTU",
+      "full_form": "American Society of Heating, Refrigerating and Air-Conditioning Engineers",
+      "domain": ["HVAC", "Mechanical Engineering", "Energy Systems"],
+      "description": "Focuses on HVAC systems, thermal engineering, and sustainable building technologies."
+    },
+    {
+      "id": 7,
+      "name": "IPI DTU",
+      "full_form": "Indian Plastics Institute",
+      "domain": ["Plastics Engineering", "Polymer Science", "Manufacturing"],
+      "description": "Technical society focused on plastics engineering, polymer technology, and manufacturing processes."
+    },
+    {
+      "id": 8,
+      "name": "DCG",
+      "full_form": "DTU Consulting Group",
+      "domain": ["Consulting", "Strategy", "Problem Solving"],
+      "description": "Student consulting society solving real-world business and technical problems."
+    },
+    {
+      "id": 9,
+      "name": "180 DC DTU",
+      "full_form": "180 Degrees Consulting",
+      "domain": ["Consulting", "Social Impact"],
+      "description": "World’s largest student consulting organization focused on social impact projects."
+    },
+    {
+      "id": 10,
+      "name": "Round Table DTU",
+      "full_form": "Round Table Society",
+      "domain": ["Discussion", "Technology", "Skill Development"],
+      "description": "Society focused on discussions, ideation, and technical skill development."
+    },
+    {
+      "id": 11,
+      "name": "ASSETS",
+      "full_form": "Association for Sustainable Systems and Emerging Technologies",
+      "domain": ["Technology", "Innovation", "Engineering"],
+      "description": "Technical society promoting emerging technologies and interdisciplinary engineering."
+    },
+    {
+      "id": 12,
+      "name": "MACS",
+      "full_form": "Mathematics and Computing Society",
+      "domain": ["Mathematics", "Algorithms", "Computer Science"],
+      "description": "Society dedicated to mathematics, algorithms, and computational thinking."
+    },
+    {
+      "id": 13,
+      "name": "IGTS",
+      "full_form": "Indian Game Theory Society",
+      "domain": ["Game Theory", "Economics", "Strategy"],
+      "description": "Technical society focused on game theory, strategic thinking, and decision science."
+    },
+    {
+      "id": 14,
+      "name": "E-Cell DTU",
+      "full_form": "Entrepreneurship Cell, DTU",
+      "domain": ["Entrepreneurship", "Startups", "Innovation"],
+      "description": "Entrepreneurship cell fostering startup culture, innovation, and business leadership among students."
+    },
+    {
+      "id": 15,
+      "name": "IFSA DTU",
+      "full_form": "Indian Finance & Strategy Association",
+      "domain": ["Finance", "Strategy", "Consulting"],
+      "description": "Student society focused on finance, strategy, case studies, and analytical decision-making."
+    },
+    {
+      "id": 16,
+      "name": "DTU Times",
+      "full_form": "DTU Times",
+      "domain": ["Media", "Journalism", "Content Creation"],
+      "description": "Official student media and journalism society covering campus news, articles, and events."
+    }
+  ]
+}

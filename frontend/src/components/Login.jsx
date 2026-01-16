@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { gsap } from 'gsap';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,6 +11,41 @@ const Login = () => {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [forgotEmail, setForgotEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  
+  const containerRef = useRef(null);
+  const formRef = useRef(null);
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      gsap.fromTo(containerRef.current,
+        { scale: 0.9, opacity: 0, y: 30 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.8, ease: 'back.out(1.7)' }
+      );
+    }
+    if (titleRef.current) {
+      gsap.fromTo(titleRef.current,
+        { x: -50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.6, delay: 0.3, ease: 'power2.out' }
+      );
+    }
+    if (formRef.current) {
+      gsap.fromTo(formRef.current.children,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, delay: 0.5, ease: 'power2.out' }
+      );
+    }
+  }, []);
+
+  const animateButton = (e) => {
+    gsap.to(e.currentTarget, {
+      scale: 0.95,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1,
+      ease: 'power2.inOut'
+    });
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -21,6 +57,14 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
+    
+    gsap.to(formRef.current, {
+      scale: 1.02,
+      duration: 0.2,
+      yoyo: true,
+      repeat: 1
+    });
+    
     setTimeout(() => {
       console.log('Login attempted:', formData);
       setIsLoading(false);
@@ -56,19 +100,19 @@ const Login = () => {
         <div className="absolute top-1/2 right-1/3 w-72 h-72 bg-[#7000FF]/20 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
       </div>
 
-      <div className="relative w-full max-w-5xl mx-auto flex rounded-3xl overflow-hidden shadow-2xl shadow-[#7000FF]/20 backdrop-blur-sm">
+      <div ref={containerRef} className="relative w-full max-w-5xl mx-auto flex rounded-3xl overflow-hidden shadow-2xl shadow-[#7000FF]/20 backdrop-blur-sm">
         <div className="w-full lg:w-1/2 bg-white p-8 md:p-12 flex flex-col justify-center">
           {!showForgotPassword ? (
             <>
-              <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">LOGIN</h1>
-                <p className="text-gray-500 text-sm">How to get started lorem ipsum dolor sit?</p>
+              <div ref={titleRef} className="text-center mb-8">
+                <h1 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
+                <p className="text-gray-500 text-sm">Sign in to continue your journey</p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="relative">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+                <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gray-400 group-focus-within:text-[#7000FF] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                   </div>
@@ -78,14 +122,14 @@ const Login = () => {
                     placeholder="Username"
                     value={formData.username}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7000FF]/50 focus:border-transparent transition-all duration-300 text-gray-700"
+                    className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7000FF]/50 focus:border-transparent transition-all duration-300 text-gray-700 hover:shadow-md"
                     required
                   />
                 </div>
 
-                <div className="relative">
+                <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-gray-400 group-focus-within:text-[#7000FF] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
@@ -95,7 +139,7 @@ const Login = () => {
                     placeholder="Password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7000FF]/50 focus:border-transparent transition-all duration-300 text-gray-700"
+                    className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7000FF]/50 focus:border-transparent transition-all duration-300 text-gray-700 hover:shadow-md"
                     required
                   />
                 </div>
@@ -104,7 +148,7 @@ const Login = () => {
                   <button
                     type="button"
                     onClick={() => setShowForgotPassword(true)}
-                    className="text-sm text-[#7000FF] hover:text-[#5a00cc] transition-colors duration-300"
+                    className="text-sm text-[#7000FF] hover:text-[#5a00cc] transition-colors duration-300 hover:underline"
                   >
                     Forgot Password?
                   </button>
@@ -113,7 +157,8 @@ const Login = () => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-3 bg-gradient-to-r from-[#7000FF] to-[#5a00cc] text-white font-semibold rounded-lg hover:from-[#5a00cc] hover:to-[#7000FF] transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-[#7000FF]/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={animateButton}
+                  className="w-full py-3 bg-gradient-to-r from-[#7000FF] to-[#5a00cc] text-white font-semibold rounded-lg hover:from-[#5a00cc] hover:to-[#7000FF] transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-[#7000FF]/30 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-xl hover:shadow-[#7000FF]/40"
                 >
                   {isLoading ? (
                     <span className="flex items-center justify-center">
@@ -121,24 +166,29 @@ const Login = () => {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
-                      Logging in...
+                      Signing in...
                     </span>
                   ) : (
-                    'Login Now'
+                    <span className="flex items-center justify-center gap-2">
+                      <span>Sign In</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </span>
                   )}
                 </button>
               </form>
 
               <div className="flex items-center my-6">
                 <div className="flex-1 border-t border-gray-300"></div>
-                <span className="px-4 text-gray-500 text-sm font-medium">Login with Others</span>
+                <span className="px-4 text-gray-500 text-sm font-medium">Or continue with</span>
                 <div className="flex-1 border-t border-gray-300"></div>
               </div>
 
               <div className="space-y-3">
                 <button
-                  onClick={handleGoogleLogin}
-                  className="w-full flex items-center justify-center gap-3 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 group"
+                  onClick={(e) => { animateButton(e); handleGoogleLogin(); }}
+                  className="w-full flex items-center justify-center gap-3 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 group hover:shadow-md"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -150,7 +200,7 @@ const Login = () => {
                 </button>
 
                 <button
-                  onClick={handleFacebookLogin}
+                  onClick={(e) => { animateButton(e); handleFacebookLogin(); }}
                   className="w-full flex items-center justify-center gap-3 py-3 bg-[#1877F2] text-white rounded-lg hover:bg-[#166fe5] transition-all duration-300"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

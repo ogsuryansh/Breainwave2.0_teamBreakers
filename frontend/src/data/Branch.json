@@ -1,0 +1,199 @@
+{
+  "DTU_BTech_Branches": [
+    {
+      "branch": "Computer Science & Engineering (CSE)",
+      "curriculum_focus": [
+        "Programming fundamentals",
+        "Data Structures & Algorithms",
+        "Operating Systems, Databases",
+        "AI/ML, Networking, Cybersecurity (electives)"
+      ],
+      "future_opportunities": [
+        "Software Developer",
+        "AI/ML Engineer",
+        "Data Scientist",
+        "Tech Research / Higher Studies"
+      ]
+    },
+    {
+      "branch": "Electronics & Communication Engineering (ECE)",
+      "curriculum_focus": [
+        "Circuit Theory",
+        "Digital & Analog Electronics",
+        "Communication Systems",
+        "VLSI & Embedded Systems (specialized topics)"
+      ],
+      "future_opportunities": [
+        "Embedded Systems Engineer",
+        "VLSI / Hardware Design",
+        "Telecommunications",
+        "IoT / Sensor Systems"
+      ]
+    },
+    {
+      "branch": "Mechanical Engineering (ME)",
+      "curriculum_focus": [
+        "Mechanics & Thermodynamics",
+        "Machine Design",
+        "Fluid Mechanics",
+        "Manufacturing Processes"
+      ],
+      "future_opportunities": [
+        "Mechanical / Thermal Engineer",
+        "Automotive / Aerospace Roles",
+        "Design & Manufacturing Specialist",
+        "R&D or Higher Studies"
+      ]
+    },
+    {
+      "branch": "Electrical Engineering (EE)",
+      "curriculum_focus": [
+        "Electric Circuits & Machines",
+        "Power Systems",
+        "Control Systems",
+        "Power Electronics"
+      ],
+      "future_opportunities": [
+        "Power Systems Engineer",
+        "Control & Automation",
+        "Renewable Energy Systems",
+        "Smart Grid / Electric Vehicles"
+      ]
+    },
+    {
+      "branch": "Civil Engineering (CE)",
+      "curriculum_focus": [
+        "Structural Engineering",
+        "Geotechnical Engineering",
+        "Transportation Engineering",
+        "Environmental & Construction Management"
+      ],
+      "future_opportunities": [
+        "Structural / Site Engineer",
+        "Urban Infrastructure Planning",
+        "Project Management",
+        "Environmental Engineering Roles"
+      ]
+    },
+    {
+      "branch": "Information Technology (IT)",
+      "curriculum_focus": [
+        "Core computing & IT fundamentals",
+        "Web & Mobile Technologies",
+        "Networks & Security",
+        "Databases & Cloud Computing"
+      ],
+      "future_opportunities": [
+        "IT Consultant",
+        "Full-Stack Developer",
+        "Cloud / DevOps Engineer",
+        "Cybersecurity Specialist"
+      ]
+    },
+    {
+      "branch": "Software Engineering (SE)",
+      "curriculum_focus": [
+        "Software Development Life Cycle",
+        "Agile & DevOps",
+        "Software Testing & Quality",
+        "Design Patterns & Architecture"
+      ],
+      "future_opportunities": [
+        "Software Developer",
+        "Product / Software Architect",
+        "Quality Assurance / Test Engineer",
+        "Tech Leadership"
+      ]
+    },
+    {
+      "branch": "Biotechnology (BT)",
+      "curriculum_focus": [
+        "Cell & Molecular Biology",
+        "Genetics & Bioinformatics",
+        "Bioprocess Engineering",
+        "Lab and research-oriented training"
+      ],
+      "future_opportunities": [
+        "Biotech R&D",
+        "Clinical / Pharma Jobs",
+        "Bioinformatics Analyst",
+        "Higher Studies in Life Sciences"
+      ]
+    },
+    {
+      "branch": "Environmental Engineering",
+      "curriculum_focus": [
+        "Environmental Science",
+        "Waste & Water Management",
+        "Pollution Control",
+        "Sustainable Engineering Practices"
+      ],
+      "future_opportunities": [
+        "Environmental Consultant",
+        "Sustainability Specialist",
+        "Water / Waste Treatment Engineer",
+        "Policy & Conservation Roles"
+      ]
+    },
+    {
+      "branch": "Chemical Engineering",
+      "curriculum_focus": [
+        "Chemical Process Principles",
+        "Thermodynamics",
+        "Transport Phenomena",
+        "Reaction Engineering"
+      ],
+      "future_opportunities": [
+        "Process / Plant Engineer",
+        "Energy & Materials Sector",
+        "Pharma / Petrochem Industries",
+        "R&D or Higher Studies"
+      ]
+    },
+    {
+      "branch": "Engineering Physics",
+      "curriculum_focus": [
+        "Advanced Physics Concepts",
+        "Quantum Mechanics",
+        "Optics & Semiconductor Physics",
+        "Interdisciplinary Physics + Tech"
+      ],
+      "future_opportunities": [
+        "Research Scientist",
+        "Instrumentation / Optics Engineer",
+        "Tech R&D",
+        "Higher Studies (Physics/Engineering)"
+      ]
+    },
+    {
+      "branch": "Mathematics & Computing",
+      "curriculum_focus": [
+        "Advanced Mathematics",
+        "Computational Methods",
+        "Algorithms & Modelling",
+        "Statistics & Data Analytics"
+      ],
+      "future_opportunities": [
+        "Quantitative Analyst",
+        "Data Scientist",
+        "Operations Research",
+        "Academic / Research"
+      ]
+    },
+    {
+      "branch": "Production & Industrial Engineering",
+      "curriculum_focus": [
+        "Production Systems",
+        "Manufacturing Management",
+        "Operations Research",
+        "Quality Control"
+      ],
+      "future_opportunities": [
+        "Industrial / Manufacturing Engineer",
+        "Operations Manager",
+        "Supply Chain Analyst",
+        "Systems Optimisation"
+      ]
+    }
+  ]
+}
