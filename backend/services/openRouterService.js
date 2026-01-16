@@ -1,10 +1,17 @@
 import https from 'https';
 
-const API_KEY = process.env.ONDEMAND_API_KEY;
 const ENDPOINT_ID = 'predefined-openai-gpt4.1-nano';
 
 export const generateRoadmapWithAI = async (branch, semester, interests) => {
   console.log(`🎯 Generating AI roadmap for ${branch} (${semester}) interested in: ${interests.join(', ')}`);
+
+  // Access API Key inside the function to ensure env vars are loaded
+  const API_KEY = process.env.ONDEMAND_API_KEY;
+
+  if (!API_KEY) {
+    console.error("❌ ONDEMAND_API_KEY is missing from environment variables!");
+    return getMockRoadmap(branch, semester, interests);
+  }
 
   return new Promise((resolve, reject) => {
     const prompt = `
