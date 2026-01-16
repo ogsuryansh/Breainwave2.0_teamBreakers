@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import './App.css'
 import Hero from './components/Hero'
 import SelectionForm from './components/SelectionForm'
@@ -9,6 +9,7 @@ import Navigation from './components/Navigation'
 import Sidebar from './components/Sidebar'
 import Login from './components/Login'
 import Register from './components/Register'
+import GPACalculator from './components/GPACalculator'
 import { generateRoadmap as generateRoadmapAPI, generateAudio } from './services/api'
 
 function HomePage() {
@@ -152,6 +153,11 @@ function HomePage() {
   )
 }
 
+function GPACalculatorPage() {
+  const navigate = useNavigate()
+  return <GPACalculator onBack={() => navigate('/')} />
+}
+
 function App() {
   return (
     <Router>
@@ -159,6 +165,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/gpa-calculator" element={<GPACalculatorPage />} />
       </Routes>
     </Router>
   )

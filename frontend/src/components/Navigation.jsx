@@ -31,6 +31,13 @@ export default function Navigation() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
               </a>
             ))}
+            <Link
+              to="/gpa-calculator"
+              className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
+            >
+              GPA Calculator
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
+            </Link>
           </div>
 
           {isAuthenticated ? (
