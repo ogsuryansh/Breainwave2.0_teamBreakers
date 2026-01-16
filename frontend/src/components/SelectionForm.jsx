@@ -293,7 +293,8 @@ export default function SelectionForm({ onGenerateRoadmap, onBack }) {
         { name: 'Web Dev', icon: Icons.globe, color: 'from-green-500 to-emerald-400' },
         { name: 'Robotics', icon: Icons.cpu, color: 'from-orange-500 to-yellow-400' },
         { name: 'Finance', icon: Icons.chart, color: 'from-emerald-500 to-teal-400' },
-        { name: 'Product', icon: Icons.palette, color: 'from-pink-500 to-rose-400' }
+        { name: 'Product Management', icon: Icons.palette, color: 'from-pink-500 to-rose-400' },
+        { name: 'Other Interest', icon: Icons.palette, color: 'from-pink-500 to-rose-400' }
     ]
 
     const stepConfig = [
