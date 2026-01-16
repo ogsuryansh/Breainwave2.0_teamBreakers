@@ -12,6 +12,7 @@ import Register from './components/Register'
 import GPACalculator from './components/GPACalculator'
 import MyRoadmaps from './components/MyRoadmaps'
 import { generateRoadmap as generateRoadmapAPI, generateAudio } from './services/api'
+import html2pdf from 'html2pdf.js'
 
 function HomePage() {
   const [roadmapData, setRoadmapData] = useState(null)
@@ -19,6 +20,23 @@ function HomePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const selectionFormRef = useRef(null)
+
+  const handleDownloadPDF = () => {
+    const element = document.getElementById('roadmap-pdf-content');
+    element.classList.remove('hidden'); // Temporarily show for capture
+
+    const opt = {
+      margin: 1,
+      filename: 'my-campus-hustle-roadmap.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save().then(() => {
+      element.classList.add('hidden'); // Hide again
+    });
+  }
 
   const handleStart = () => {
     selectionFormRef.current?.scrollIntoView({
@@ -38,8 +56,16 @@ function HomePage() {
     setLoading(true)
     setError(null)
 
+    // Ensure animation plays for at least 5 seconds
+    const minAnimationTime = new Promise(resolve => setTimeout(resolve, 5000))
+
     try {
-      const response = await generateRoadmapAPI(formData)
+      // Run API call and timer in parallel
+      const [response] = await Promise.all([
+        generateRoadmapAPI(formData),
+        minAnimationTime
+      ])
+
       console.log("Roadmap Data received:", response.data)
 
       // Save roadmap to localStorage
@@ -133,9 +159,47 @@ function HomePage() {
               >
                 {loading ? '🎧 Generating...' : '🎧 Voice Mentor'}
               </button>
-              <button className="px-8 py-3 bg-gradient-to-r from-midnight-primary to-midnight-secondary text-white font-bold hover:shadow-lg hover:shadow-midnight-primary/50 transition-all duration-300 rounded-lg">
+              <button
+                onClick={handleDownloadPDF}
+                className="px-8 py-3 bg-gradient-to-r from-midnight-primary to-midnight-secondary text-white font-bold hover:shadow-lg hover:shadow-midnight-primary/50 transition-all duration-300 rounded-lg"
+              >
                 📥 Download PDF
               </button>
+            </div>
+          </div>
+
+          {/* Hidden Print Container for PDF */}
+          <div id="roadmap-pdf-content" className="hidden">
+            <div className="p-8 bg-white text-black">
+              <h1 className="text-3xl font-bold mb-4 text-center">My 6-Month Roadmap</h1>
+              <div className="mb-4 text-center">
+                <p><strong>Target Role:</strong> {roadmapData.targetRole}</p>
+                <p><strong>Hustle Score:</strong> {roadmapData.hustleScore}/100</p>
+              </div>
+
+              <div className="space-y-6">
+                {roadmapData.timeline.map((item, idx) => (
+                  <div key={idx} className="border-b pb-4">
+                    <h3 className="text-xl font-bold">{item.month}: {item.title}</h3>
+                    <p className="text-gray-700 mb-2">{item.description}</p>
+                    <ul className="list-disc pl-5">
+                      {item.milestones.map((m, mIdx) => (
+                        <li key={mIdx} className="text-sm">{m.title}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8">
+                <h3 className="text-xl font-bold mb-2">Projects to Build</h3>
+                {roadmapData.projects.map((proj, idx) => (
+                  <div key={idx} className="mb-4">
+                    <h4 className="font-bold">{proj.name} ({proj.difficulty})</h4>
+                    <p className="text-sm">{proj.description}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
