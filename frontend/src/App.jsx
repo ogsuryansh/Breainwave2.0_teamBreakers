@@ -13,6 +13,12 @@ import GPACalculator from './components/GPACalculator'
 import MyRoadmaps from './components/MyRoadmaps'
 import SocietiesPage from './components/SocietiesPage'
 import TechTeamsPage from './components/TechTeamsPage'
+import ElectivesPage from './components/ElectivesPage'
+import EventsPage from './components/EventsPage'
+import MastersPage from './components/MastersPage'
+import MoocsPage from './components/MoocsPage'
+import PlacementStatsPage from './components/PlacementStatsPage'
+import BranchesPage from './components/BranchesPage'
 import { generateRoadmap as generateRoadmapAPI, generateAudio, deleteRoadmap, getLatestRoadmap } from './services/api'
 import html2pdf from 'html2pdf.js'
 
@@ -287,6 +293,12 @@ function App() {
         <Route path="/my-roadmaps" element={<MyRoadmaps />} />
         <Route path="/societies" element={<SocietiesPage />} />
         <Route path="/tech-teams" element={<TechTeamsPage />} />
+        <Route path="/electives" element={<ElectivesPage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/masters" element={<MastersPage />} />
+        <Route path="/moocs" element={<MoocsPage />} />
+        <Route path="/placement-stats" element={<PlacementStatsPage />} />
+        <Route path="/branches" element={<BranchesPage />} />
       </Routes>
     </Router>
   )

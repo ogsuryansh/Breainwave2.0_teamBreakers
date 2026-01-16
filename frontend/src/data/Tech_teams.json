@@ -6,6 +6,8 @@
     {
       "id": 1,
       "name": "Team Inferno",
+      "image":"/images/inferno.jpeg",
+      "link":["https://www.infernodtu.in/"],
       "domain": ["Robotics", "Autonomous Systems"],
       "description": "Works on robotic systems and autonomous mobile platforms.",
       "category": "Robotics"
@@ -13,6 +15,7 @@
     {
       "id": 2,
       "name": "Team Raftaar",
+      "link":["https://teamraftaar.in/"],
       "domain": ["Automotive", "Vehicle Dynamics"],
       "description": "Designs and builds high-performance racing vehicles.",
       "category": "Automotive"
@@ -20,6 +23,7 @@
     {
       "id": 3,
       "name": "UAS-DTU",
+      "link":["https://uasdtu.com/"],
       "domain": ["Aerospace", "Drones"],
       "description": "Unmanned Aerial Systems team focusing on UAV design and control.",
       "category": "Aerospace"
@@ -27,6 +31,7 @@
     {
       "id": 4,
       "name": "Team Super Mileage",
+      "link":["https://www.dtusupermileage.in/"],
       "domain": ["Automotive", "Energy Efficiency"],
       "description": "Focuses on designing fuel-efficient vehicles for competitions.",
       "category": "Automotive"
@@ -34,6 +39,7 @@
     {
       "id": 5,
       "name": "DelTech Baja",
+      "link":["N/A"],
       "domain": ["Automotive", "Off-road Vehicles"],
       "description": "Builds off-road vehicles for Baja SAE competitions.",
       "category": "Automotive"
@@ -41,6 +47,7 @@
     {
       "id": 6,
       "name": "Defianz Racing",
+      "link":["https://www.teamdefianzdtusdc.com/"],
       "domain": ["Formula Student", "Automotive"],
       "description": "Formula-style race car design and manufacturing team.",
       "category": "Automotive"
@@ -48,6 +55,7 @@
     {
       "id": 7,
       "name": "UGV-DTU",
+      "link":["https://ugvdtu.com/"],
       "domain": ["Robotics", "Defense"],
       "description": "Develops unmanned ground vehicles for autonomous navigation.",
       "category": "Robotics"
@@ -55,6 +63,7 @@
     {
       "id": 8,
       "name": "AUV Team DTU",
+      "link":["https://auv-dtu.netlify.app/"],
       "domain": ["Marine", "Robotics"],
       "description": "Autonomous Underwater Vehicle design and development team.",
       "category": "Robotics"
@@ -62,6 +71,7 @@
     {
       "id": 9,
       "name": "Okami Racing",
+      "link":["N/A"],
       "domain": ["Automotive", "Motorsports"],
       "description": "Student-led vehicle engineering and racing team.",
       "category": "Automotive"
@@ -69,6 +79,7 @@
     {
     "id": 10,
     "name": "Team Rocketry DTU",
+    "link":["N/A"],
     "domain": ["Aerospace", "Rocketry", "Propulsion"],
     "description": "Student rocketry team focused on designing, building, and launching model and high-power rockets.",
     "category": "Aerospace"
@@ -76,6 +87,7 @@
   {
   "id": 11,
   "name": "Team Altair",
+  "link":["https://www.altair-dtu.in/"],
   "domain": ["Robotics", "Research", "Interdisciplinary"],
   "description": "Focuses on advanced robotics research and innovative engineering solutions.",
   "category": "Aerospace"
@@ -83,6 +95,7 @@
   {
     "id": 12,
     "name": "Team Udupi",
+    "link":["N/A"],  
     "domain": ["Robotics", "Innovation", "Interdisciplinary Engineering"],
     "description": "Interdisciplinary technical team working on innovative engineering and problem-solving projects.",
     "category": "Innovation"

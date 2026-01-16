@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { ChevronDown, Users, Rocket } from 'lucide-react'
+import { ChevronDown, Users, Rocket, BookOpen, Calendar, GraduationCap, Monitor, TrendingUp, GitBranch } from 'lucide-react'
 
 import logo from '../assets/campusHustle.jpeg'
 
@@ -12,6 +12,12 @@ export default function Navigation() {
   const resourceLinks = [
     { name: 'Societies', path: '/societies', icon: Users, color: 'text-pink-400' },
     { name: 'Tech Teams', path: '/tech-teams', icon: Rocket, color: 'text-red-400' },
+    { name: 'Electives', path: '/electives', icon: BookOpen, color: 'text-cyan-400' },
+    { name: 'Events', path: '/events', icon: Calendar, color: 'text-orange-400' },
+    { name: 'Masters', path: '/masters', icon: GraduationCap, color: 'text-purple-400' },
+    { name: 'MOOCs', path: '/moocs', icon: Monitor, color: 'text-green-400' },
+    { name: 'Placements', path: '/placement-stats', icon: TrendingUp, color: 'text-yellow-400' },
+    { name: 'Branches', path: '/branches', icon: GitBranch, color: 'text-blue-400' },
   ]
 
   return (
