@@ -1,0 +1,156 @@
+{
+  "university": "Delhi Technological University",
+  "category": "Annual Events & Fests",
+  "events": [
+    {
+      "id": 1,
+      "name": "E-Summit",
+      "type": "Entrepreneurship Summit",
+      "time_of_year": "February–March",
+      "organised_by": "E-Cell DTU",
+      "opportunities": [
+        "Networking with Unicorn founders and VCs",
+        "Live Pitching competitions (Shark Tank style)",
+        "Seed funding opportunities",
+        "Panel discussions on global markets"
+      ],
+      "skills_gained": ["Business Strategy", "Public Speaking", "Networking", "Financial Literacy"],
+      "image": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/63673_ecell_dtu_logo.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Invictus",
+      "type": "Technical Fest",
+      "time_of_year": "February",
+      "organised_by": "DTU Technical Council",
+      "opportunities": [
+        "National-level robotics and coding challenges",
+        "Showcase of student innovations and prototypes",
+        "Inter-university technical networking",
+        "Resume-building certifications"
+      ],
+      "skills_gained": ["Technical Engineering", "Product Development", "Team Collaboration"],
+      "image": "https://pbs.twimg.com/profile_images/1221124436570951680/XoX7tNlo_400x400.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Troika",
+      "type": "Technical Festival",
+      "time_of_year": "January–February",
+      "organised_by": "IEEE DTU",
+      "opportunities": [
+        "Competitive programming hackathons",
+        "Workshops on AI, ML, and Web Development",
+        "Paper presentations and research showcases",
+        "Industry-led technical seminars"
+      ],
+      "skills_gained": ["Software Development", "Research Methodology", "Algorithmic Thinking"],
+      "image": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/60650_ieee_dtu_logo.png"
+    },
+    {
+      "id": 4,
+      "name": "Engifest",
+      "type": "Cultural Fest",
+      "time_of_year": "February",
+      "organised_by": "DTU Cultural Council",
+      "opportunities": [
+        "Pro-nights featuring international artists",
+        "Performing arts competitions (Music, Dance, Drama)",
+        "Sponsorship management and corporate relations",
+        "Large-scale event operations"
+      ],
+      "skills_gained": ["Event Management", "Creative Arts", "Crisis Management", "Leadership"],
+      "image": "https://upload.wikimedia.org/wikipedia/en/3/3a/Engifest_Logo.png"
+    },
+    {
+      "id": 5,
+      "name": "Pramana",
+      "type": "Management & Analytical Fest",
+      "time_of_year": "September–October",
+      "organised_by": "AIMS DTU",
+      "opportunities": [
+        "Business case study competitions",
+        "Data analytics hackathons",
+        "Corporate strategy simulations",
+        "Consulting workshops"
+      ],
+      "skills_gained": ["Analytical Thinking", "Corporate Strategy", "Data Interpretation"],
+      "image": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/60652_aims_dtu_logo.png"
+    },
+    {
+      "id": 6,
+      "name": "Aahvan",
+      "type": "Sports Fest",
+      "time_of_year": "March",
+      "organised_by": "DTU Sports Council",
+      "opportunities": [
+        "Inter-university sports championships",
+        "National-level athlete representation",
+        "Fitness marathons and yoga sessions",
+        "Sports management and logistics"
+      ],
+      "skills_gained": ["Team Spirit", "Discipline", "Physical Endurance", "Sportsmanship"],
+      "image": "https://dtutimes.dtu.ac.in/img/dtu_times_logo.png"
+    },
+    {
+      "id": 7,
+      "name": "Orientation Week",
+      "type": "Student Induction",
+      "time_of_year": "August",
+      "organised_by": "DTU Administration",
+      "opportunities": [
+        "Introduction to university infrastructure",
+        "Society showcases and department visits",
+        "Networking with seniors and alumni",
+        "Cultural integration sessions"
+      ],
+      "skills_gained": ["Adaptability", "Social Intelligence", "Institutional Awareness"],
+      "image": "https://dtutimes.dtu.ac.in/images/recent/orientation.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Society Recruitment Drives",
+      "type": "Talent Acquisition",
+      "time_of_year": "August–September",
+      "organised_by": "All Student Societies",
+      "opportunities": [
+        "Auditions for cultural and technical teams",
+        "Interviews for management roles",
+        "Allocation of Positions of Responsibility (POR)",
+        "Skill assessment and mentorship"
+      ],
+      "skills_gained": ["Interview Skills", "Self-Presentation", "Professional Negotiation"],
+      "image": "https://dtutimes.dtu.ac.in/images/blogs/soc_rec.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Global Hackathons",
+      "type": "Technical Competition",
+      "time_of_year": "Year-Round",
+      "organised_by": "IEEE, EHAX, MACS",
+      "opportunities": [
+        "24-48 hour intense coding marathons",
+        "Solving real-world industry problem statements",
+        "PPO (Pre-Placement Offers) from sponsors",
+        "Cash prizes and developer swags"
+      ],
+      "skills_gained": ["Rapid Prototyping", "Full Stack Development", "Innovation"],
+      "image": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/60653_ehax_dtu_logo.png"
+    },
+    {
+      "id": 10,
+      "name": "Placement Season",
+      "type": "Career & Recruitment",
+      "time_of_year": "July–December",
+      "organised_by": "Training & Placement Cell",
+      "opportunities": [
+        "On-campus recruitment by MNCs",
+        "Summer internship selections",
+        "Aptitude and technical interview rounds",
+        "Pre-placement talks and industry insights"
+      ],
+      "skills_gained": ["Professionalism", "Interview Techniques", "Corporate Readiness"],
+      "image": "https://cdnb.artstation.com/p/assets/images/images/009/836/381/large/prabhat-kumar-tnp-logo.jpg"
+    }
+  ]
+}

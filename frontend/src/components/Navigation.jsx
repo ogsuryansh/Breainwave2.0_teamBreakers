@@ -1,10 +1,18 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
+import { ChevronDown, Users, Rocket } from 'lucide-react'
 
 import logo from '../assets/campusHustle.jpeg'
 
 export default function Navigation() {
   const { user, isAuthenticated, logout } = useAuth0()
+  const [showResourcesMenu, setShowResourcesMenu] = useState(false)
+
+  const resourceLinks = [
+    { name: 'Societies', path: '/societies', icon: Users, color: 'text-pink-400' },
+    { name: 'Tech Teams', path: '/tech-teams', icon: Rocket, color: 'text-red-400' },
+  ]
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/20 border-b border-white/5 supports-[backdrop-filter]:bg-black/10">
@@ -30,6 +38,35 @@ export default function Navigation() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
               </a>
             ))}
+            
+            {/* Resources Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setShowResourcesMenu(true)}
+              onMouseLeave={() => setShowResourcesMenu(false)}
+            >
+              <button className="flex items-center gap-1 text-sm font-medium text-gray-300 hover:text-white transition-colors relative group">
+                Resources
+                <ChevronDown className={`w-4 h-4 transition-transform ${showResourcesMenu ? 'rotate-180' : ''}`} />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 transition-all group-hover:w-full" />
+              </button>
+              
+              {showResourcesMenu && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 py-2 bg-midnight-bg/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-xl shadow-black/50 animate-fade-in">
+                  {resourceLinks.map((link) => (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                    >
+                      <link.icon className={`w-4 h-4 ${link.color}`} />
+                      {link.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Link
               to="/gpa-calculator"
               className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"

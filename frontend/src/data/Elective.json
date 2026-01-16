@@ -1,0 +1,269 @@
+{
+  " elective courses": [
+    {
+      "type": "AEC",
+      "course_code": "AEC 1 / FEC 16",
+      "course_title": "Appreciation of Fiction",
+      "allotted_slots": ["S1"],
+      "tags": ["Literature", "Critical Thinking"],
+      "benefits": ["Enhances reading comprehension", "Improves analytical thinking", "Builds cultural awareness"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 2 / FEC 15",
+      "course_title": "Appreciation of Poetry & Prose",
+      "allotted_slots": ["S1"],
+      "tags": ["Literature", "Creativity"],
+      "benefits": ["Improves expression", "Develops aesthetic sense", "Enhances interpretation skills"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 3 / FEC 14",
+      "course_title": "Appreciation of Short Stories",
+      "allotted_slots": ["S1"],
+      "tags": ["Storytelling", "Literature"],
+      "benefits": ["Improves narrative skills", "Boosts creativity", "Sharpens analysis"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 4 / FEC 12",
+      "course_title": "Business Communication and Presentation Skills",
+      "allotted_slots": ["S1"],
+      "tags": ["Business", "Communication"],
+      "benefits": ["Improves corporate communication", "Builds presentation confidence", "Useful for placements"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 5 / FEC 10",
+      "course_title": "Communication Skills",
+      "allotted_slots": ["S1"],
+      "tags": ["Soft Skills", "Communication"],
+      "benefits": ["Improves verbal skills", "Boosts confidence", "Helps in teamwork"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 10 / FEC 40",
+      "course_title": "German",
+      "allotted_slots": ["S2"],
+      "tags": ["Language", "Global Skills"],
+      "benefits": ["Useful for foreign studies", "Enhances employability", "Improves cognition"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 11 / FEC 11",
+      "course_title": "Soft Skills and Personality Development",
+      "allotted_slots": ["S1"],
+      "tags": ["Personality", "Career"],
+      "benefits": ["Builds confidence", "Improves interpersonal skills", "Career readiness"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 12 / FEC 39",
+      "course_title": "Japanese",
+      "allotted_slots": ["S1"],
+      "tags": ["Language", "Culture"],
+      "benefits": ["Global exposure", "International career advantage", "Improves focus"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 13 / FEC 32",
+      "course_title": "Logical Reasoning",
+      "allotted_slots": ["S1"],
+      "tags": ["Logic", "Aptitude"],
+      "benefits": ["Improves problem-solving", "Helpful for exams", "Enhances decision making"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 15 / FEC 13",
+      "course_title": "Public Speaking",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Leadership", "Communication"],
+      "benefits": ["Builds stage confidence", "Enhances leadership skills", "Improves articulation"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 18 / FEC 9",
+      "course_title": "Spoken Skills in English",
+      "allotted_slots": ["S1"],
+      "tags": ["English", "Communication"],
+      "benefits": ["Improves fluency", "Interview readiness", "Professional communication"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 19 / FEC 46",
+      "course_title": "Technical Communication",
+      "allotted_slots": ["S2"],
+      "tags": ["Technical Writing", "Engineering"],
+      "benefits": ["Improves report writing", "Industry-ready skills", "Research communication"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 20 / FEC 49",
+      "course_title": "Sketching & Rendering",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Design", "Creativity"],
+      "benefits": ["Enhances visualization", "Design thinking", "Useful for product roles"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 21 / FEC 50",
+      "course_title": "Thinking Studio & Elements of Design",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Innovation", "Design"],
+      "benefits": ["Creative problem solving", "Innovation mindset", "Design fundamentals"]
+    },
+    {
+      "type": "AEC",
+      "course_code": "AEC 25 / FEC 51",
+      "course_title": "Entrepreneurship Exploration",
+      "allotted_slots": ["S2"],
+      "tags": ["Entrepreneurship", "Startups"],
+      "benefits": ["Startup exposure", "Business thinking", "Risk management skills"]
+    },
+
+    {
+      "type": "VAC",
+      "course_code": "VAC 3 / FEC 6",
+      "course_title": "Corporate Social Responsibility",
+      "allotted_slots": ["S2"],
+      "tags": ["Ethics", "Society"],
+      "benefits": ["Social awareness", "Ethical responsibility", "Leadership values"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 5 / FEC 28",
+      "course_title": "Emotional Intelligence",
+      "allotted_slots": ["S2"],
+      "tags": ["Mental Health", "Self Growth"],
+      "benefits": ["Emotional control", "Better relationships", "Stress management"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 6 / FEC 52",
+      "course_title": "Extension Outreach Activities",
+      "allotted_slots": ["O"],
+      "tags": ["Community", "Social Work"],
+      "benefits": ["Community engagement", "Social responsibility", "Real-world exposure"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 10 / FEC 48",
+      "course_title": "Introduction to Biological Science",
+      "allotted_slots": ["S2"],
+      "tags": ["Biology", "Science"],
+      "benefits": ["Interdisciplinary knowledge", "Scientific awareness", "Research exposure"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 11 / FEC 57",
+      "course_title": "Leadership Through Self-Management",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Leadership", "Self Growth"],
+      "benefits": ["Personal discipline", "Leadership skills", "Time management"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 13 / FEC 54",
+      "course_title": "Negotiation & Leadership",
+      "allotted_slots": ["S1"],
+      "tags": ["Negotiation", "Leadership"],
+      "benefits": ["Conflict resolution", "Professional leadership", "Decision making"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 15 / FEC 4",
+      "course_title": "NSS",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Service", "Community"],
+      "benefits": ["Social service", "Leadership experience", "Holistic development"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 16 / FEC 27",
+      "course_title": "Professional Ethics & Human Values",
+      "allotted_slots": ["S2"],
+      "tags": ["Ethics", "Values"],
+      "benefits": ["Ethical decision making", "Value-based leadership", "Professional integrity"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 19 / FEC 58",
+      "course_title": "Science & Practice of Happiness",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Wellbeing", "Mental Health"],
+      "benefits": ["Mental wellbeing", "Stress reduction", "Positive mindset"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 20 / FEC 1",
+      "course_title": "Sports I",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Sports", "Fitness"],
+      "benefits": ["Physical fitness", "Team spirit", "Stress relief"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 21 / FEC 2",
+      "course_title": "Sports II",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Sports", "Discipline"],
+      "benefits": ["Advanced fitness", "Discipline", "Competitive spirit"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 22 / FEC 25",
+      "course_title": "Universal Human Values: Self & Family",
+      "allotted_slots": ["S2"],
+      "tags": ["Values", "Personal Growth"],
+      "benefits": ["Self awareness", "Family values", "Emotional balance"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 24 / FEC 56",
+      "course_title": "Universal Human Values: Understanding Harmony",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Ethics", "Harmony"],
+      "benefits": ["Balanced thinking", "Social harmony", "Ethical clarity"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 25 / FEC 47",
+      "course_title": "Value Driven Leadership",
+      "allotted_slots": ["S2"],
+      "tags": ["Leadership", "Ethics"],
+      "benefits": ["Ethical leadership", "Decision clarity", "Professional values"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 27 / FEC 7",
+      "course_title": "Introduction to Environmental Science",
+      "allotted_slots": ["S1-G1", "S1-G2", "S1-G3", "S1-G4", "S2-G1", "S2-G2", "S2-G3", "S2-G4"],
+      "tags": ["Environment", "Sustainability"],
+      "benefits": ["Environmental awareness", "Sustainable thinking", "Global responsibility"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 29 / FEC 3",
+      "course_title": "Physical Education & Sports",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Fitness", "Health"],
+      "benefits": ["Physical wellbeing", "Active lifestyle", "Discipline"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 30 / FEC 22",
+      "course_title": "Yoga",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Yoga", "Mental Health"],
+      "benefits": ["Stress reduction", "Flexibility", "Mental peace"]
+    },
+    {
+      "type": "VAC",
+      "course_code": "VAC 44",
+      "course_title": "Vivek Marg",
+      "allotted_slots": ["S1", "S2"],
+      "tags": ["Ethics", "Self Development"],
+      "benefits": ["Moral clarity", "Personal growth", "Balanced mindset"]
+    }
+  ]
+}

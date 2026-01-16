@@ -1,0 +1,154 @@
+{
+  "DTU_MOOC_Lists_by_Branch": {
+    "Computer_Science_and_Engineering": {
+      "typical_NPTEL_courses": [
+        "The Joy of Computing using Python",
+        "Programming, Data Structures & Algorithms using Python",
+        "Introduction to Internet of Things",
+        "Cloud Computing",
+        "Cryptography and Network Security",
+        "Machine Learning",
+        "Data Science for Engineers",
+        "System Design & Distributed Systems",
+        "Introduction to Database Systems",
+        "Artificial Intelligence"
+      ],
+      "DTU_branch_specific_notes": "Departments periodically release approved DEC/GEC MOOC lists; these courses above are commonly chosen for DEC/GEC credit on SWAYAM/NPTEL."
+    },
+    "Information_Technology": {
+      "typical_NPTEL_courses": [
+        "Web Technology",
+        "Information Security",
+        "Cloud Computing",
+        "Computer Networks & Internet Protocol",
+        "Business Analytics and Data Mining",
+        "Full Stack Web Development",
+        "Cyber Physical Systems",
+        "Machine Learning for Engineering",
+        "Python for Data Science",
+        "Software Testing"
+      ],
+      "DTU_branch_specific_notes": "IT students often choose CSE-aligned MOOCs (Security, Networks, ML, Python, etc.) since DTU treats them as DEC if aligned with core discipline."
+    },
+    "Electronics_and_Communication_Engineering": {
+      "typical_NPTEL_courses": [
+        "Fundamentals of MIMO Wireless Communication",
+        "Discrete Time Signal Processing",
+        "VLSI Physical Design",
+        "Embedded System Design with ARM",
+        "Communication Systems Fundamentals",
+        "Digital IC Design",
+        "Control Engineering",
+        "Internet of Things",
+        "Computer Vision and Image Processing",
+        "Fuzzy Sets, Logic and Applications"
+      ],
+      "DTU_branch_specific_notes": "ECE department notices explicitly approve certain courses such as Digital IC Design, VLSI Physical Design, Sensors, and Actuators for DEC category. :contentReference[oaicite:2]{index=2}"
+    },
+    "Electrical_Engineering": {
+      "typical_NPTEL_courses": [
+        "Principles of Communication Systems",
+        "Power System Engineering",
+        "Electrical Machines-II",
+        "Control Engineering",
+        "Embedded Sensing & Interfacing",
+        "Signals and Systems",
+        "Transducers for Instrumentation",
+        "Industrial Automation and Control",
+        "Microprocessors & Microcontrollers",
+        "Smart Grid Technologies"
+      ],
+      "DTU_branch_specific_notes": "EE students commonly pick power, control, signals, embedded system, and automation MOOCs for ELECTIVE credits."
+    },
+    "Mechanical_Engineering": {
+      "typical_NPTEL_courses": [
+        "Finite Element Method",
+        "Manufacturing Process Technology",
+        "Product Design and Manufacturing",
+        "Advanced Robotics",
+        "Turbulent Combustion: Theory & Modelling",
+        "Engineering Thermodynamics",
+        "Machinery Fault Diagnosis",
+        "Industrial Hydraulics and Automation",
+        "Elements of Solar Energy Conversion",
+        "Mechanical Measurement Systems"
+      ],
+      "DTU_branch_specific_notes": "Mechanical MOOCs emphasize design, manufacturing, robotics and strength/thermodynamics; chosen often as DEC/GEC."
+    },
+    "Civil_Engineering": {
+      "typical_NPTEL_courses": [
+        "Advanced Structural Analysis",
+        "Finite Element Analysis",
+        "Urban Transportation Planning",
+        "Watershed Management",
+        "Ground Improvement Techniques",
+        "Stochastic Hydrology",
+        "Water Resources Systems",
+        "Probability Methods in CE Engineering",
+        "Smart Cities & Infrastructure",
+        "Hydraulic Engineering"
+      ],
+      "DTU_branch_specific_notes": "Civil MOOCs focus on structural, transportation, hydrology and urban planning topics aligned with CE curriculum. :contentReference[oaicite:3]{index=3}"
+    },
+    "Biotechnology": {
+      "typical_NPTEL_courses": [
+        "Cell Biology",
+        "Enzymology",
+        "Experimental Biochemistry",
+        "Bioinformatics",
+        "Climate and Environment Protection",
+        "Bioprocess Engineering Fundamentals",
+        "Genomics Data Science",
+        "Molecular Biology and Genetics",
+        "Environmental Biotechnology",
+        "Systems Biology"
+      ],
+      "DTU_branch_specific_notes": "BT students often take bioinformatics, cell biology, bioprocess or environmental topics as MOOCs."
+    },
+    "Software_Engineering_and_Mathematics": {
+      "typical_NPTEL_courses": [
+        "Discrete Mathematics",
+        "Optimization Algorithms",
+        "Probability and Statistics",
+        "Software Reliability",
+        "Business Intelligence & Analytics",
+        "Object Oriented Programming (Java)",
+        "Database Systems",
+        "Algorithmic Graph Theory",
+        "Machine Learning",
+        "Scientific Computing using Python"
+      ],
+      "DTU_branch_specific_notes": "These MOOCs supplement SE/MNC core with math grounding, analytics, and software/MLOps topics."
+    },
+    "Environmental_and_Interdisciplinary": {
+      "typical_NPTEL_courses": [
+        "Environmental Science",
+        "Climate Change Science",
+        "Air Pollution",
+        "Sustainability & Resource Management",
+        "Watershed Management",
+        "Forest and Natural Resource Management",
+        "Environmental Economics",
+        "Sustainable Urban Development",
+        "Energy & Climate Policy",
+        "Green Technologies"
+      ],
+      "DTU_branch_specific_notes": "These courses are useful for both EVS elective and interdisciplinary requirements."
+    },
+    "Humanities_Social_Sciences_and_Others": {
+      "typical_NPTEL_courses": [
+        "Education for Sustainable Development",
+        "Introduction to Cognitive Psychology",
+        "Language & Mind",
+        "Soft Skill Development",
+        "Emotional Intelligence",
+        "Entrepreneurship Essentials",
+        "Creative Writing",
+        "Digital Marketing",
+        "Business Communication",
+        "Research and Publication Ethics"
+      ],
+      "DTU_branch_specific_notes": "These MOOCs can often satisfy Generic Elective Credit (GEC) requirements."
+    }
+  }
+}

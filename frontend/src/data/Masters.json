@@ -1,0 +1,133 @@
+{
+  "DTU_Postgraduate_and_Doctoral_Programs": [
+    {
+      "program": "Master of Technology (M.Tech)",
+      "curriculum_focus": [
+        "Advanced discipline-specific engineering coursework",
+        "Interdisciplinary electives under CBCS",
+        "Research project or dissertation",
+        "Industry-relevant technologies and labs"
+      ],
+      "specializations_examples": [
+        "Computer Science & Engineering",
+        "Software Engineering",
+        "Applied Physics (Nano Science & Tech)",
+        "Civil Engineering (Structures, Environment)",
+        "Biotechnology (Bioinformatics)",
+        "Applied Chemistry (Polymer Technology)"
+      ],
+      "duration": "2 years full-time/part-time",
+      "future_opportunities": [
+        "Senior engineering / technical roles",
+        "R&D Engineer in core and high-tech sectors",
+        "Technical consultant",
+        "Pathway to PhD or research careers"
+      ],
+      "notes": "Over 25 specializations offered with flexibility via CBCS electives." 
+    },
+    {
+      "program": "Master of Science (M.Sc)",
+      "curriculum_focus": [
+        "In-depth study of science disciplines",
+        "Elective courses to specialize",
+        "Practical lab work and project",
+        "Foundation for scientific applications"
+      ],
+      "disciplines": [
+        "Mathematics",
+        "Physics",
+        "Chemistry",
+        "Biotechnology"
+      ],
+      "duration": "2 years full-time",
+      "future_opportunities": [
+        "Research Analyst / Scientist in science industries",
+        "R&D roles in labs and industrial sectors",
+        "Analytical roles in data/science fields",
+        "Progression to PhD research"
+      ],
+      "notes": "Electives allow students to tailor focus within their science discipline." 
+    },
+    {
+      "program": "Master of Business Administration (MBA)",
+      "curriculum_focus": [
+        "Management fundamentals (finance, marketing, HR)",
+        "Analytics, operations & IT oriented electives",
+        "Industry interaction & business case studies",
+        "Soft skills and leadership development"
+      ],
+      "duration": "2 years full-time",
+      "future_opportunities": [
+        "Management trainee & leadership roles",
+        "Consulting, Finance, Marketing & HR careers",
+        "Entrepreneurship / Start-up initiatives",
+        "Operations & Strategy roles"
+      ],
+      "notes": "Offers functional electives such as operations management, data analytics, and strategic management." 
+    },
+    {
+      "program": "Integrated B.Sc + M.Sc",
+      "curriculum_focus": [
+        "Five-year integrated curriculum from fundamentals to advanced",
+        "Multiple entry/exit options with certificate/diploma",
+        "Blend of undergraduate and postgraduate science coursework",
+        "Interdisciplinary electives"
+      ],
+      "disciplines": [
+        "Mathematics & Applied Mathematics",
+        "Physics & Applied Physics",
+        "Chemistry & Applied Chemistry",
+        "Biotechnology",
+        "Economics / Humanities"
+      ],
+      "duration": "5 years",
+      "future_opportunities": [
+        "Industry roles in science and engineering fields",
+        "Higher studies (M.Sc/PhD or specialized masters)",
+        "Analytical and lab roles",
+        "Flexible entry to professional careers"
+      ],
+      "notes": "Allows exit after 1, 2, or 3 years with certification/diploma/degree." 
+    },
+    {
+      "program": "M.Tech by Research",
+      "curriculum_focus": [
+        "Two-thirds research focused on real problems",
+        "One-third core and elective coursework",
+        "Publication & research outcome orientation",
+        "Project presentation and thesis"
+      ],
+      "duration": "Typically 2 years",
+      "future_opportunities": [
+        "Research Engineer roles",
+        "R&D positions in labs and advanced tech firms",
+        "Strong pathway to PhD programs",
+        "Research publications and academic careers"
+      ],
+      "notes": "Useful for students aiming for deeper research experience before a PhD." 
+    },
+    {
+      "program": "Doctor of Philosophy (Ph.D.)",
+      "curriculum_focus": [
+        "Advanced research under faculty supervision",
+        "Course credits plus independent research",
+        "Publication of research in journals and conferences",
+        "Thesis submission based on original work"
+      ],
+      "disciplines_examples": [
+        "Engineering (CSE, ECE, Mechanical, Civil, etc.)",
+        "Science (Physics, Chemistry, Biotechnology, Mathematics)",
+        "Management",
+        "Design & Humanities"
+      ],
+      "duration": "Varies (typically 3-5 years)",
+      "future_opportunities": [
+        "Academic faculty positions",
+        "Principal or lead researcher roles",
+        "Industry R&D leadership",
+        "Specialist consultant / entrepreneur"
+      ],
+      "notes": "Offered full-time, part-time, and sponsored categories with fellowship options for scholars." 
+    }
+  ]
+}
