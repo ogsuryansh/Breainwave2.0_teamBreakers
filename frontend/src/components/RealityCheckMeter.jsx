@@ -54,28 +54,54 @@ export default function RealityCheckMeter({ roadmapData }) {
     <div className="space-y-6">
       {/* Student Info Header */}
       {studentInfo.branch && (
-        <div className="backdrop-blur-xl bg-gradient-to-r from-purple-500/10 via-cyan-500/10 to-purple-500/10 border border-white/20 rounded-2xl p-6">
-          <h3 className="text-lg font-bold text-white mb-2">Roadmap For</h3>
-          <div className="flex flex-wrap items-center gap-3 text-sm">
-            <div className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/10">
-              <span className="text-gray-400">Branch: </span>
-              <span className="text-cyan-400 font-bold">{studentInfo.branch}</span>
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:border-white/20 hover:shadow-cyan-500/10 group">
+          {/* Ambient Glow */}
+          <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-cyan-500/20 blur-3xl transition-all duration-500 group-hover:bg-cyan-500/30"></div>
+          <div className="absolute -left-10 -bottom-10 h-32 w-32 rounded-full bg-purple-500/20 blur-3xl transition-all duration-500 group-hover:bg-purple-500/30"></div>
+
+          <h3 className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-gray-400">Personalized Plan For</h3>
+
+          <div className="space-y-4">
+            {/* Branch Item */}
+            <div className="flex items-center gap-4 rounded-xl bg-white/5 p-3 border border-white/5 transition-colors hover:bg-white/10 hover:border-cyan-500/30">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-500/20 text-cyan-400">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+                  <path d="M12 3L1 9l11 6 9-4.91V17M5 13.18v4L12 21l7-3.82v-4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <div>
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 font-bold">Branch</div>
+                <div className="font-bold text-white text-sm">{studentInfo.branch}</div>
+              </div>
             </div>
-            <div className="px-3 py-1.5 bg-white/10 rounded-lg border border-white/10">
-              <span className="text-gray-400">Semester: </span>
-              <span className="text-purple-400 font-bold">{studentInfo.semester}</span>
+
+            {/* Semester Item */}
+            <div className="flex items-center gap-4 rounded-xl bg-white/5 p-3 border border-white/5 transition-colors hover:bg-white/10 hover:border-purple-500/30">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-400">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </div>
+              <div>
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 font-bold">Current Status</div>
+                <div className="font-bold text-white text-sm">{studentInfo.semester}</div>
+              </div>
             </div>
+
+            {/* Interests */}
+            {studentInfo.interests && studentInfo.interests.length > 0 && (
+              <div className="pt-2">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-2">Focus Areas</div>
+                <div className="flex flex-wrap gap-2">
+                  {studentInfo.interests.map((interest, i) => (
+                    <span key={i} className="px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-medium shadow-[0_0_10px_rgba(34,211,238,0.1)] hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] hover:border-cyan-400/50 transition-all duration-300">
+                      {interest}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-          {studentInfo.interests && studentInfo.interests.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-2">
-              <span className="text-gray-400 text-xs">Interests:</span>
-              {studentInfo.interests.map((interest, i) => (
-                <span key={i} className="px-2 py-1 bg-cyan-500/20 border border-cyan-500/30 rounded-lg text-cyan-300 text-xs font-medium">
-                  {interest}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       )}
 
