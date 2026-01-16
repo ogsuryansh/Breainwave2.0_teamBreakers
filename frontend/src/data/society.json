@@ -26,9 +26,9 @@
     {
       "id": 4,
       "name": "AIMS DTU",
-      "full_form": "Association for Industrial & Management Studies",
-      "domain": ["Management", "Analytics", "Consulting"],
-      "description": "Society bridging management principles with engineering and analytics."
+      "full_form": "AI and Machine Learning Society",
+      "domain": ["AI", "Machine Learning", "Data Science"],
+      "description": "Technical society dedicated to artificial intelligence, machine learning, and data science advancements."
     },
     {
       "id": 5,

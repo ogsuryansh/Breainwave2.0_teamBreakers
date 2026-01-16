@@ -1,0 +1,220 @@
+{
+  "university": "Delhi Technological University (DTU)",
+  "report_type": "5-Year Placement Analysis (2021-2025)",
+  "currency": "INR (Lakhs Per Annum - LPA)",
+  "years": {
+    "2025": {
+      "batch": "2021-2025",
+      "status": "Ongoing/Provisional",
+      "overall_highlights": {
+        "highest_package_lpa": 85.0,
+        "average_package_lpa": 15.45,
+        "median_package_lpa": 13.25,
+        "top_recruiters": ["Atlassian", "Uber", "Microsoft", "Google"]
+      },
+      "branch_wise_stats": {
+        "Mathematics_and_Computing": {
+          "average_package_lpa": 17.8,
+          "highest_package_lpa": 62.0,
+          "placement_ratio": 82.5
+        },
+        "Software_Engineering": {
+          "average_package_lpa": 18.46,
+          "highest_package_lpa": 85.0,
+          "placement_ratio": 70.0
+        },
+        "Computer_Engineering": {
+          "average_package_lpa": 19.85,
+          "highest_package_lpa": 64.0,
+          "placement_ratio": 74.8
+        },
+        "Information_Technology": {
+          "average_package_lpa": 16.62,
+          "highest_package_lpa": 56.0,
+          "placement_ratio": 77.2
+        },
+        "Electronics_and_Communication": {
+          "average_package_lpa": 15.82,
+          "highest_package_lpa": 48.0,
+          "placement_ratio": 60.3
+        },
+        "Electrical_Engineering": {
+          "average_package_lpa": 12.89,
+          "highest_package_lpa": 45.0,
+          "placement_ratio": 53.7
+        },
+        "Mechanical_Engineering": {
+          "average_package_lpa": 9.58,
+          "highest_package_lpa": 31.0,
+          "placement_ratio": 62.5
+        },
+        "Civil_Engineering": {
+          "average_package_lpa": 9.20,
+          "highest_package_lpa": 20.31,
+          "placement_ratio": 47.9
+        },
+        "Production_Engineering": {
+          "average_package_lpa": 9.65,
+          "highest_package_lpa": 20.85,
+          "placement_ratio": 44.8
+        },
+        "Chemical_Engineering": {
+          "average_package_lpa": 9.97,
+          "highest_package_lpa": 21.0,
+          "placement_ratio": 41.1
+        },
+        "Biotechnology": {
+          "average_package_lpa": 11.0,
+          "highest_package_lpa": 31.0,
+          "placement_ratio": 28.3
+        },
+        "Environmental_Engineering": {
+          "average_package_lpa": 11.44,
+          "highest_package_lpa": 31.0,
+          "placement_ratio": 48.6
+        }
+      }
+    },
+    "2024": {
+      "batch": "2020-2024",
+      "status": "Finalized",
+      "overall_highlights": {
+        "highest_package_lpa": 85.3,
+        "average_package_lpa": 15.45,
+        "median_package_lpa": 14.10,
+        "total_offers": 2459,
+        "companies_visited": 403
+      },
+      "branch_wise_stats": {
+        "Computer_Engineering": {
+          "average_package_lpa": 17.21,
+          "highest_package_lpa": 85.3
+        },
+        "Software_Engineering": {
+          "average_package_lpa": 21.54,
+          "highest_package_lpa": 64.0
+        },
+        "Information_Technology": {
+          "average_package_lpa": 16.23,
+          "highest_package_lpa": 51.0
+        },
+        "Mathematics_and_Computing": {
+          "average_package_lpa": 18.90,
+          "highest_package_lpa": 85.3
+        },
+        "Electronics_and_Communication": {
+          "average_package_lpa": 16.61,
+          "highest_package_lpa": 85.3
+        },
+        "Electrical_Engineering": {
+          "average_package_lpa": 12.47,
+          "highest_package_lpa": 51.0
+        },
+        "Mechanical_Engineering": {
+          "average_package_lpa": 9.58,
+          "highest_package_lpa": 26.0
+        },
+        "Civil_Engineering": {
+          "average_package_lpa": 8.58,
+          "highest_package_lpa": 19.2
+        },
+        "Biotechnology": {
+          "average_package_lpa": 10.25,
+          "highest_package_lpa": 20.0
+        }
+      }
+    },
+    "2023": {
+      "batch": "2019-2023",
+      "status": "Finalized (Peak Year)",
+      "overall_highlights": {
+        "highest_package_lpa": 82.05,
+        "average_package_lpa": 16.05,
+        "median_package_lpa": 13.00,
+        "companies_visited": 350
+      },
+      "branch_wise_stats": {
+        "Computer_Engineering": {
+          "average_package_lpa": 23.70,
+          "highest_package_lpa": 82.05
+        },
+        "Software_Engineering": {
+          "average_package_lpa": 20.60,
+          "highest_package_lpa": 64.23
+        },
+        "Information_Technology": {
+          "average_package_lpa": 25.22,
+          "highest_package_lpa": 82.05
+        },
+        "Mathematics_and_Computing": {
+          "average_package_lpa": 20.71,
+          "highest_package_lpa": 82.05
+        },
+        "Electronics_and_Communication": {
+          "average_package_lpa": 18.32,
+          "highest_package_lpa": 51.03
+        },
+        "Electrical_Engineering": {
+          "average_package_lpa": 15.44,
+          "highest_package_lpa": 82.05
+        },
+        "Mechanical_Engineering": {
+          "average_package_lpa": 11.23,
+          "highest_package_lpa": 31.0
+        }
+      }
+    },
+    "2022": {
+      "batch": "2018-2022",
+      "status": "Finalized",
+      "overall_highlights": {
+        "highest_package_lpa": 184.0,
+        "highest_package_details": "International Offer (Palantir)",
+        "highest_domestic_lpa": 64.23,
+        "average_package_lpa": 15.16,
+        "median_package_lpa": 11.00,
+        "offers_above_20lpa": 413
+      },
+      "branch_wise_stats": {
+        "Computer_Engineering": {
+          "average_package_lpa": 24.0,
+          "highest_package_lpa": 184.0
+        },
+        "Information_Technology": {
+          "average_package_lpa": 20.9,
+          "highest_package_lpa": 64.23
+        },
+        "Electronics_and_Communication": {
+          "average_package_lpa": 17.5,
+          "highest_package_lpa": 44.0
+        }
+      }
+    },
+    "2021": {
+      "batch": "2017-2021",
+      "status": "Finalized",
+      "overall_highlights": {
+        "highest_package_lpa": 112.0,
+        "highest_package_details": "International Offer (Amazon Dublin)",
+        "average_package_lpa": 12.24,
+        "median_package_lpa": 8.94
+      },
+      "branch_wise_stats": {
+        "Computer_Engineering": {
+          "average_package_lpa": 17.0,
+          "highest_package_lpa": 112.0
+        },
+        "Software_Engineering": {
+          "average_package_lpa": 14.5,
+          "highest_package_lpa": 42.0
+        }
+      }
+    }
+  },
+  "notes": {
+    "data_source": "Aggregated from Official TnP DTU Reports, NIRF Disclosures, and verified student placement summaries.",
+    "2025_note": "2025 data is provisional and reflects the data provided by the user.",
+    "trends": "Significant jump in Average CTC observed from 2021 to 2023. A slight market correction is observed in 2024 and 2025, consistent with global tech hiring trends.",
+    "international_offers": "2022 saw the highest-ever international package of 1.84 Cr (Palantir)."
+  }
+}

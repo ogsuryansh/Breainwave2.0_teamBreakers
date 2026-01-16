@@ -11,6 +11,8 @@ import Login from './components/Login'
 import Register from './components/Register'
 import GPACalculator from './components/GPACalculator'
 import MyRoadmaps from './components/MyRoadmaps'
+import SocietiesPage from './components/SocietiesPage'
+import TechTeamsPage from './components/TechTeamsPage'
 import { generateRoadmap as generateRoadmapAPI, generateAudio, deleteRoadmap, getLatestRoadmap } from './services/api'
 import html2pdf from 'html2pdf.js'
 
@@ -283,6 +285,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/gpa-calculator" element={<GPACalculatorPage />} />
         <Route path="/my-roadmaps" element={<MyRoadmaps />} />
+        <Route path="/societies" element={<SocietiesPage />} />
+        <Route path="/tech-teams" element={<TechTeamsPage />} />
       </Routes>
     </Router>
   )
