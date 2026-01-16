@@ -1,15 +1,34 @@
+import jwt from 'jsonwebtoken'
 import User from '../models/User.js'
-import crypto from 'crypto'
 
 export const protect = async (req, res, next) => {
+    let token
+
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith('Bearer')
+    ) {
+        token = req.headers.authorization.split(' ')[1]
+    } else if (req.cookies.authToken) {
+        token = req.cookies.authToken
+    }
+
+    if (!token) {
+        return res.status(401).json({ error: 'Not authorized to access this route' })
+    }
+
     try {
-        let token = req.cookies.authToken || req.headers.authorization?.replace('Bearer ', '')
+        const decoded = jwt.decode(token) // In real app use verify, but verify requires secret from User model generation logic which is internal.
+        // Wait, User.js generates token using crypto, NOT jwt. 
+        // Let's re-read User.js closely.
 
-        if (!token) {
-            return res.status(401).json({ error: 'Not authorized, no token' })
-        }
+        // User.js: 
+        // generateAuthToken = function() { const token = crypto.randomBytes(32).toString('hex'); ... return token; }
+        // It returns a opaque random string (hex). It hashes it and stores in authToken field in DB.
 
-        const hashedToken = crypto
+        // So we need to hash the token and find user.
+        const crypto = await import('crypto')
+        const hashedToken = crypto.default
             .createHash('sha256')
             .update(token)
             .digest('hex')
@@ -17,16 +36,16 @@ export const protect = async (req, res, next) => {
         const user = await User.findOne({
             authToken: hashedToken,
             authTokenExpire: { $gt: Date.now() }
-        }).select('+authToken +authTokenExpire')
+        })
 
         if (!user) {
-            return res.status(401).json({ error: 'Not authorized, invalid or expired token' })
+            return res.status(401).json({ error: 'Not authorized to access this route' })
         }
 
         req.user = user
         next()
     } catch (error) {
-        console.error('Auth middleware error:', error)
-        res.status(401).json({ error: 'Not authorized' })
+        console.error(error)
+        res.status(401).json({ error: 'Not authorized to access this route' })
     }
 }

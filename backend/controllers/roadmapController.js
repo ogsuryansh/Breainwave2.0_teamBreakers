@@ -1,6 +1,8 @@
 import { generateRoadmapWithAI } from '../services/openRouterService.js'
 import { generateRoadmapAudio, createRoadmapSummary } from '../services/elevenLabsService.js'
 import { calculateMetrics } from '../utils/calculateMetrics.js'
+import Roadmap from '../models/Roadmap.js'
+import User from '../models/User.js'
 
 export const generateRoadmap = async (req, res) => {
     try {
@@ -15,10 +17,30 @@ export const generateRoadmap = async (req, res) => {
         const aiRoadmap = await generateRoadmapWithAI(branch, semester, interests)
         const metrics = calculateMetrics(branch, semester, interests)
 
+        // Save to Database
+        const newRoadmap = await Roadmap.create({
+            user: req.user._id,
+            branch,
+            semester,
+            interests,
+            targetRole: aiRoadmap.targetRole,
+            timeline: aiRoadmap.timeline,
+            skills: aiRoadmap.skills,
+            projects: aiRoadmap.projects,
+            resources: aiRoadmap.resources,
+            metrics
+        })
+
+        // Link to User
+        await User.findByIdAndUpdate(req.user._id, {
+            $push: { roadmaps: newRoadmap._id }
+        })
+
         res.json({
             success: true,
             data: {
                 ...aiRoadmap,
+                _id: newRoadmap._id, // Send back the ID for deletion/editing
                 metrics,
                 branch,
                 semester,
@@ -57,5 +79,32 @@ export const generateAudio = async (req, res) => {
             error: 'Failed to generate audio',
             details: error.message
         })
+    }
+}
+
+export const deleteRoadmap = async (req, res) => {
+    try {
+        const roadmap = await Roadmap.findById(req.params.id)
+
+        if (!roadmap) {
+            return res.status(404).json({ error: 'Roadmap not found' })
+        }
+
+        // Ensure user owns the roadmap
+        if (roadmap.user.toString() !== req.user._id.toString()) {
+            return res.status(401).json({ error: 'Not authorized to delete this roadmap' })
+        }
+
+        await roadmap.deleteOne()
+
+        // Remove from user's roadmaps array
+        await User.findByIdAndUpdate(req.user._id, {
+            $pull: { roadmaps: roadmap._id }
+        })
+
+        res.json({ success: true, message: 'Roadmap removed' })
+    } catch (error) {
+        console.error('Error deleting roadmap:', error)
+        res.status(500).json({ error: 'Server error' })
     }
 }

@@ -1,17 +1,24 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
+const getAuthHeaders = () => {
+    const token = localStorage.getItem('authToken')
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+    }
+}
+
 export const generateRoadmap = async (formData) => {
     try {
         const response = await fetch(`${API_URL}/api/roadmap/generate`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: getAuthHeaders(),
             body: JSON.stringify(formData)
         })
 
         if (!response.ok) {
-            throw new Error('Failed to generate roadmap')
+            const errorData = await response.json()
+            throw new Error(errorData.error || 'Failed to generate roadmap')
         }
 
         const data = await response.json()
@@ -40,6 +47,25 @@ export const generateAudio = async (roadmapData) => {
         return blob
     } catch (error) {
         console.error('Audio API Error:', error)
+        throw error
+    }
+}
+
+export const deleteRoadmap = async (id) => {
+    try {
+        const response = await fetch(`${API_URL}/api/roadmap/${id}`, {
+            method: 'DELETE',
+            headers: getAuthHeaders()
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json()
+            throw new Error(errorData.error || 'Failed to delete roadmap')
+        }
+
+        return await response.json()
+    } catch (error) {
+        console.error('Delete API Error:', error)
         throw error
     }
 }

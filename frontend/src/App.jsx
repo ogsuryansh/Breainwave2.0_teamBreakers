@@ -11,7 +11,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import GPACalculator from './components/GPACalculator'
 import MyRoadmaps from './components/MyRoadmaps'
-import { generateRoadmap as generateRoadmapAPI, generateAudio } from './services/api'
+import { generateRoadmap as generateRoadmapAPI, generateAudio, deleteRoadmap } from './services/api'
 import html2pdf from 'html2pdf.js'
 
 function HomePage() {
@@ -56,8 +56,8 @@ function HomePage() {
     setLoading(true)
     setError(null)
 
-    // Ensure animation plays for at least 5 seconds
-    const minAnimationTime = new Promise(resolve => setTimeout(resolve, 5000))
+    // Ensure animation plays for at least 2 seconds (reduced for better UX)
+    const minAnimationTime = new Promise(resolve => setTimeout(resolve, 2000))
 
     try {
       // Run API call and timer in parallel
@@ -114,6 +114,26 @@ function HomePage() {
     }
   }
 
+  const handleDeleteRoadmap = async () => {
+    if (!confirm('Are you sure you want to delete this roadmap? This cannot be undone.')) return
+
+    setLoading(true)
+    try {
+      if (roadmapData._id) {
+        await deleteRoadmap(roadmapData._id)
+      }
+      setRoadmapData(null)
+      setShowRoadmap(false)
+      // Also remove from local storage if needed, or refresh list
+      localStorage.removeItem('currentRoadmap') // Example cleanup
+    } catch (err) {
+      console.error("Failed to delete", err)
+      alert("Failed to delete roadmap")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   if (showRoadmap) {
     return (
       <div className="min-h-screen bg-midnight-bg text-white overflow-hidden">
@@ -164,6 +184,12 @@ function HomePage() {
                 className="px-8 py-3 bg-gradient-to-r from-midnight-primary to-midnight-secondary text-white font-bold hover:shadow-lg hover:shadow-midnight-primary/50 transition-all duration-300 rounded-lg"
               >
                 📥 Download PDF
+              </button>
+              <button
+                onClick={handleDeleteRoadmap}
+                className="px-8 py-3 border border-red-500 text-red-500 font-bold hover:bg-red-500 hover:text-white transition-all duration-300 rounded-lg"
+              >
+                🗑️ Delete Plan
               </button>
             </div>
           </div>

@@ -119,17 +119,17 @@ const ProfessionalGenerationLoader = ({ isLaunching, onComplete }) => {
                     }
                     return prev + 1
                 })
-            }, 50) // 100 steps * 50ms = 5000ms
+            }, 20) // 100 steps * 20ms = 2000ms
 
             // Status text updates
-            setTimeout(() => setStatusText("Connecting to AI Core..."), 1000)
-            setTimeout(() => setStatusText("Analyzing academic profile & interests..."), 2500)
-            setTimeout(() => setStatusText("Synthesizing personalized roadmap..."), 4000)
+            setTimeout(() => setStatusText("Connecting to AI Core..."), 500)
+            setTimeout(() => setStatusText("Analyzing academic profile & interests..."), 1000)
+            setTimeout(() => setStatusText("Synthesizing personalized roadmap..."), 1500)
 
-            // Complete after 5 seconds
+            // Complete after 2 seconds
             const completeTimeout = setTimeout(() => {
                 onComplete()
-            }, 5000)
+            }, 2000)
 
             return () => {
                 clearInterval(interval)
@@ -556,9 +556,9 @@ export default function SelectionForm({ onGenerateRoadmap, onBack }) {
     }
 
     const handleLaunchComplete = () => {
-        console.log("Launch complete, roadmap should display now");
-        setIsLaunching(false)
-        setIsGenerating(false)
+        console.log("Launch animation complete. Waiting for roadmap generation...");
+        // Do NOT set isLaunching(false) here. 
+        // We want the loader to persist until the parent unmounts this component.
     }
 
     const renderStepContent = () => {
