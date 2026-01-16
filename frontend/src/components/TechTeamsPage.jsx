@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Search, Rocket, ExternalLink } from 'lucide-react'
+import { ArrowLeft, Search, Rocket, ExternalLink, ImageIcon } from 'lucide-react'
 import techTeamsData from '../data/Tech_teams.json'
 
 export default function TechTeamsPage() {
@@ -102,41 +102,63 @@ export default function TechTeamsPage() {
           {filteredTeams.map((team) => (
             <div
               key={team.id}
-              className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-midnight-primary/50 hover:bg-white/10 transition-all duration-300 group"
+              className="bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-midnight-primary/50 hover:bg-white/10 transition-all duration-300 group"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className={`w-12 h-12 bg-gradient-to-br ${getCategoryColor(team.category)} rounded-xl flex items-center justify-center`}>
-                  <Rocket className="w-6 h-6 text-white" />
+              {/* Team Image */}
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-midnight-primary/20 to-midnight-secondary/20">
+                {team.image ? (
+                  <img
+                    src={team.image}
+                    alt={team.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                ) : null}
+                <div className={`absolute inset-0 flex items-center justify-center ${team.image ? 'hidden' : 'flex'}`}>
+                  <div className={`w-20 h-20 bg-gradient-to-br ${getCategoryColor(team.category)} rounded-2xl flex items-center justify-center`}>
+                    <Rocket className="w-10 h-10 text-white" />
+                  </div>
                 </div>
-                {team.website && (
-                  <a
-                    href={team.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-midnight-primary transition-colors"
-                  >
-                    <ExternalLink className="w-5 h-5" />
-                  </a>
-                )}
+                {/* Category Badge */}
+                <div className="absolute top-3 left-3">
+                  <span className={`text-xs px-3 py-1 bg-gradient-to-r ${getCategoryColor(team.category)} text-white rounded-full font-medium`}>
+                    {team.category}
+                  </span>
+                </div>
               </div>
 
-              <h3 className="text-xl font-bold text-white mb-1 group-hover:text-midnight-primary transition-colors">
-                {team.name}
-              </h3>
-              {team.category && (
-                <p className="text-sm text-midnight-secondary mb-3">{team.category}</p>
-              )}
-              <p className="text-gray-400 text-sm mb-4 line-clamp-3">{team.description}</p>
+              <div className="p-5">
+                <div className="flex items-start justify-between mb-2">
+                  <h3 className="text-xl font-bold text-white group-hover:text-midnight-primary transition-colors">
+                    {team.name}
+                  </h3>
+                  {team.link && team.link !== "" && (
+                    <a
+                      href={team.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-midnight-primary transition-colors p-1"
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </a>
+                  )}
+                </div>
 
-              <div className="flex flex-wrap gap-2">
-                {(team.domain || []).slice(0, 3).map((domain, idx) => (
-                  <span
-                    key={idx}
-                    className="text-xs px-2 py-1 bg-midnight-primary/10 text-midnight-primary rounded-full border border-midnight-primary/20"
-                  >
-                    {domain}
-                  </span>
-                ))}
+                <p className="text-gray-400 text-sm mb-4 line-clamp-2">{team.description}</p>
+
+                <div className="flex flex-wrap gap-2">
+                  {(team.domain || []).slice(0, 3).map((domain, idx) => (
+                    <span
+                      key={idx}
+                      className="text-xs px-2 py-1 bg-midnight-primary/10 text-midnight-primary rounded-full border border-midnight-primary/20"
+                    >
+                      {domain}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
