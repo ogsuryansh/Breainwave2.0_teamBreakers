@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Hero from './components/Hero'
 import SelectionForm from './components/SelectionForm'
@@ -6,8 +7,9 @@ import Timeline from './components/Timeline'
 import RealityCheckMeter from './components/RealityCheckMeter'
 import Navigation from './components/Navigation'
 import Sidebar from './components/Sidebar'
+import Login from './components/Login'
 
-function App() {
+function HomePage() {
   const [roadmapData, setRoadmapData] = useState(null)
   const [showRoadmap, setShowRoadmap] = useState(false)
   const selectionFormRef = useRef(null)
@@ -101,5 +103,15 @@ function App() {
   )
 }
 
-export default App
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
+  )
+}
 
+export default App
