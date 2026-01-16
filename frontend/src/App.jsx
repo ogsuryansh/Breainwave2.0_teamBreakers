@@ -10,6 +10,7 @@ import Sidebar from './components/Sidebar'
 import Login from './components/Login'
 import Register from './components/Register'
 import GPACalculator from './components/GPACalculator'
+import MyRoadmaps from './components/MyRoadmaps'
 import { generateRoadmap as generateRoadmapAPI, generateAudio } from './services/api'
 
 function HomePage() {
@@ -39,11 +40,25 @@ function HomePage() {
 
     try {
       const response = await generateRoadmapAPI(formData)
+      console.log("Roadmap Data received:", response.data)
+
+      // Save roadmap to localStorage
+      const roadmapWithMetadata = {
+        id: Date.now(),
+        ...response.data,
+        createdAt: new Date().toISOString()
+      }
+
+      const savedRoadmaps = JSON.parse(localStorage.getItem('savedRoadmaps') || '[]')
+      savedRoadmaps.unshift(roadmapWithMetadata)
+      localStorage.setItem('savedRoadmaps', JSON.stringify(savedRoadmaps))
+
       setRoadmapData(response.data)
       setShowRoadmap(true)
     } catch (err) {
-      setError('Failed to generate roadmap. Please try again.')
       console.error(err)
+      alert(`Error generating roadmap: ${err.message || 'Unknown error'}`)
+      setError('Failed to generate roadmap. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -166,6 +181,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/gpa-calculator" element={<GPACalculatorPage />} />
+        <Route path="/my-roadmaps" element={<MyRoadmaps />} />
       </Routes>
     </Router>
   )

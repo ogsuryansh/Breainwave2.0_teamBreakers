@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 import { gsap } from 'gsap'
 import branchData from '../data/Branch.json'
 import techTeamsData from '../data/Tech_teams.json'
@@ -349,6 +351,8 @@ const FloatingIcon = ({ icon, delay = 0 }) => {
 }
 
 export default function SelectionForm({ onGenerateRoadmap, onBack }) {
+    const { isAuthenticated } = useAuth0()
+
     const [currentStep, setCurrentStep] = useState(1)
     const [formData, setFormData] = useState({
         branch: '',
@@ -422,6 +426,50 @@ export default function SelectionForm({ onGenerateRoadmap, onBack }) {
         }
     }, [currentStep])
 
+    // Authentication Check AFTER hooks
+    if (!isAuthenticated) {
+        return (
+            <div className="min-h-[400px] w-full flex items-center justify-center p-4">
+                <div className="relative w-full max-w-lg p-1 bg-gradient-to-br from-white/10 to-white/5 rounded-3xl backdrop-blur-2xl border border-white/10 shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/10 to-pink-500/10 rounded-3xl animate-pulse" />
+
+                    <div className="relative bg-[#0a0a1a]/80 rounded-[22px] p-8 md:p-12 text-center overflow-hidden">
+                        <div className="mb-6 flex justify-center">
+                            <div className="relative p-4 rounded-full bg-white/5 border border-white/10 text-cyan-400">
+                                {Icons.lock}
+                            </div>
+                        </div>
+
+                        <h2 className="text-3xl font-black text-white mb-4 tracking-tight">
+                            Login Required
+                        </h2>
+
+                        <p className="text-gray-400 mb-8 leading-relaxed">
+                            To generate your personalized academic roadmap, you need to access the secure Student Portal first.
+                        </p>
+
+                        <div className="flex flex-col gap-4">
+                            <Link
+                                to="/login"
+                                className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2"
+                            >
+                                <span className="text-xl">Login to Continue</span>
+                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            </Link>
+
+                            <button
+                                onClick={onBack}
+                                className="text-gray-500 hover:text-white transition-colors text-sm font-medium"
+                            >
+                                Return to Home
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     const handleInterestToggle = (interest) => {
         const isAdding = !formData.interests.includes(interest)
 
@@ -483,21 +531,14 @@ export default function SelectionForm({ onGenerateRoadmap, onBack }) {
         }
     }
 
-    const handleGenerate = () => {
+    const handleGenerate = async () => {
         console.log("Generate clicked. Data:", formData);
         if (formData.branch && formData.semester && formData.interests.length > 0) {
             setIsGenerating(true)
             setIsLaunching(true)
 
-            // Safety fallback
-            setTimeout(() => {
-                // If still launching after 3s, force complete.
-                // We check a ref or state inside a functional update or just rely on the fact 
-                // that this closure captured the state? 
-                // Actually, accessing state in timeout might be stale if we don't use refs, 
-                // but this is a simple "kick".
-                console.log("Animation safety check...");
-            }, 3000);
+            // Start API call IMMEDIATELY (parallel with animation)
+            const apiCallPromise = onGenerateRoadmap(formData)
 
             gsap.to(cardRef.current, {
                 scale: 1.02,
@@ -506,18 +547,18 @@ export default function SelectionForm({ onGenerateRoadmap, onBack }) {
                 repeat: 2,
                 ease: 'power2.inOut'
             })
+
+            // Wait for API call to complete (animation runs in parallel)
+            await apiCallPromise
         } else {
             console.error("Validation failed", formData);
         }
     }
 
     const handleLaunchComplete = () => {
-        console.log("Launch complete, triggering roadmap generation");
+        console.log("Launch complete, roadmap should display now");
         setIsLaunching(false)
-        setTimeout(() => {
-            setIsGenerating(false)
-            onGenerateRoadmap(formData)
-        }, 300)
+        setIsGenerating(false)
     }
 
     const renderStepContent = () => {
