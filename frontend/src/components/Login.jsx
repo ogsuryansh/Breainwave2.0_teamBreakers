@@ -12,6 +12,22 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [focusedInput, setFocusedInput] = useState(null);
 
+  useState(() => {
+    // Check for tokens in URL (from Auth0 callback)
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    const user = params.get('user');
+
+    if (token && user) {
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('user', decodeURIComponent(user));
+      // Clear URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+      navigate('/');
+    }
+  }, []);
+
+
   const handleChange = (e) => {
     setFormData({
       ...formData,

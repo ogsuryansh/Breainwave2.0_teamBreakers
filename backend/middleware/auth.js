@@ -4,6 +4,7 @@ import User from '../models/User.js'
 export const protect = async (req, res, next) => {
     let token
 
+    // 1. Try to find the Custom Token (Bearer or Cookie)
     if (
         req.headers.authorization &&
         req.headers.authorization.startsWith('Bearer')
@@ -13,30 +14,46 @@ export const protect = async (req, res, next) => {
         token = req.cookies.authToken
     }
 
-    if (!token) {
-        return res.status(401).json({ error: 'Not authorized to access this route' })
-    }
+    if (token) {
+        try {
+            const hashedToken = crypto
+                .createHash('sha256')
+                .update(token)
+                .digest('hex')
 
-    try {
-        // Create hash of the token to match against database
-        const hashedToken = crypto
-            .createHash('sha256')
-            .update(token)
-            .digest('hex')
+            const user = await User.findOne({
+                authToken: hashedToken,
+                authTokenExpire: { $gt: Date.now() }
+            })
 
-        const user = await User.findOne({
-            authToken: hashedToken,
-            authTokenExpire: { $gt: Date.now() }
-        })
-
-        if (!user) {
-            return res.status(401).json({ error: 'Not authorized to access this route' })
+            if (user) {
+                req.user = user
+                return next()
+            }
+        } catch (error) {
+            console.error("Token verification failed:", error)
         }
-
-        req.user = user
-        next()
-    } catch (error) {
-        console.error(error)
-        res.status(401).json({ error: 'Not authorized to access this route' })
     }
+
+    // 2. If no custom token, check for Auth0 Session (OpenID Connect)
+    if (req.oidc && req.oidc.isAuthenticated()) {
+        try {
+            const { sub, email } = req.oidc.user
+
+            // Find user synced from Auth0
+            const user = await User.findOne({
+                $or: [{ auth0Id: sub }, { email }]
+            })
+
+            if (user) {
+                req.user = user
+                return next()
+            }
+        } catch (error) {
+            console.error("Auth0 session check failed:", error)
+        }
+    }
+
+    // 3. If neither worked, unauthorized
+    return res.status(401).json({ error: 'Not authorized to access this route' })
 }
