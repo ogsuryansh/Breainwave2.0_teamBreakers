@@ -8,10 +8,14 @@ import RealityCheckMeter from './components/RealityCheckMeter'
 import Navigation from './components/Navigation'
 import Sidebar from './components/Sidebar'
 import Login from './components/Login'
+import Register from './components/Register'
+import { generateRoadmap as generateRoadmapAPI, generateAudio } from './services/api'
 
 function HomePage() {
   const [roadmapData, setRoadmapData] = useState(null)
   const [showRoadmap, setShowRoadmap] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
   const selectionFormRef = useRef(null)
 
   const handleStart = () => {
@@ -28,13 +32,44 @@ function HomePage() {
     })
   }
 
-  const handleGenerateRoadmap = (data) => {
-    setRoadmapData(data)
-    setShowRoadmap(true)
+  const handleGenerateRoadmap = async (formData) => {
+    setLoading(true)
+    setError(null)
+
+    try {
+      const response = await generateRoadmapAPI(formData)
+      setRoadmapData(response.data)
+      setShowRoadmap(true)
+    } catch (err) {
+      setError('Failed to generate roadmap. Please try again.')
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleBackToForm = () => {
     setShowRoadmap(false)
+  }
+
+  const handleDownloadAudio = async (roadmap) => {
+    setLoading(true)
+    try {
+      const audioBlob = await generateAudio(roadmap)
+      const url = window.URL.createObjectURL(audioBlob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'roadmap-mentor.mp3'
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(url)
+    } catch (err) {
+      console.error('Failed to generate audio:', err)
+      alert('Failed to generate voice mentor. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (showRoadmap) {
@@ -58,7 +93,12 @@ function HomePage() {
           </button>
 
           <div className="max-w-6xl mx-auto">
-            <h1 className="text-4xl font-bold mb-8 text-center">Your 6-Month Roadmap</h1>
+            <h1 className="text-4xl font-bold mb-4 text-center">Your 6-Month Roadmap</h1>
+            {roadmapData.targetRole && (
+              <p className="text-center text-midnight-primary text-xl mb-8">
+                Path to: {roadmapData.targetRole}
+              </p>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
@@ -69,9 +109,16 @@ function HomePage() {
               </div>
             </div>
 
-            <div className="mt-8 text-center pb-12">
+            <div className="mt-8 text-center pb-12 flex gap-4 justify-center flex-wrap">
+              <button
+                onClick={() => handleDownloadAudio(roadmapData)}
+                disabled={loading}
+                className="px-8 py-3 bg-gradient-to-r from-midnight-secondary to-midnight-primary text-white font-bold hover:shadow-lg hover:shadow-midnight-secondary/50 transition-all duration-300 rounded-lg disabled:opacity-50"
+              >
+                {loading ? '🎧 Generating...' : '🎧 Voice Mentor'}
+              </button>
               <button className="px-8 py-3 bg-gradient-to-r from-midnight-primary to-midnight-secondary text-white font-bold hover:shadow-lg hover:shadow-midnight-primary/50 transition-all duration-300 rounded-lg">
-                📥 Download My Plan
+                📥 Download PDF
               </button>
             </div>
           </div>
@@ -97,6 +144,8 @@ function HomePage() {
         <SelectionForm
           onBack={handleBackToHero}
           onGenerateRoadmap={handleGenerateRoadmap}
+          loading={loading}
+          error={error}
         />
       </div>
     </div>
@@ -109,6 +158,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   )

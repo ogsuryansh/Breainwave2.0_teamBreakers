@@ -1,4 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Syncopate:wght@400;700&display=swap');
 @tailwind base;
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/[0.03] backdrop-blur-2xl border border-white/[0.1] shadow-[0_8px_32px_0_rgba(0,0,0,0.36)];
+  }
+  
+  .glass-card {
+    @apply bg-gradient-to-br from-white/[0.1] to-white/[0.02] backdrop-blur-xl border border-white/[0.15] shadow-xl;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(112, 0, 255, 0.5), 0 0 10px rgba(0, 209, 255, 0.3);
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 
@@ -137,3 +153,22 @@ html {
 .animate-glow-pulse {
   animation: glow-pulse 2s ease-in-out infinite;
 }
+
+@keyframes text-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes gradient-xy {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-text-shimmer {
+  animation: text-shimmer 2.5s ease-out infinite alternate;
+}
+
+.animate-gradient-xy {
+  animation: gradient-xy 3s ease infinite;
+}
+
