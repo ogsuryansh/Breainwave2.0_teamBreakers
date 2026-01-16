@@ -66,10 +66,57 @@ router.get('/callback', async (req, res) => {
     }
 })
 
+// MOCK LOGIN for Development when Auth0 is not configured
+router.get('/mock-login', async (req, res) => {
+    try {
+        const mockEmail = 'dev_user@example.com'
+
+        let user = await User.findOne({ email: mockEmail })
+        if (!user) {
+            user = await User.create({
+                auth0Id: 'mock|dev_user_123',
+                email: mockEmail,
+                name: 'Developer Mode',
+                username: 'dev_hero',
+                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
+            })
+        }
+
+        const token = user.generateAuthToken()
+        await user.save()
+
+        res.cookie('authToken', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            sameSite: 'strict'
+        })
+
+        // Redirect to Frontend with Token
+        res.redirect(`${process.env.FRONTEND_URL}?token=${token}&user=${encodeURIComponent(JSON.stringify({
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            username: user.username,
+            avatar: user.avatar
+        }))}`)
+
+    } catch (error) {
+        console.error("Mock Login Failed:", error)
+        res.status(500).send("Mock Login Failed")
+    }
+})
+
 router.get('/logout-auth0', (req, res) => {
-    res.oidc.logout({
-        returnTo: process.env.FRONTEND_URL
-    })
+    if (req.oidc && req.oidc.logout) {
+        res.oidc.logout({
+            returnTo: process.env.FRONTEND_URL
+        })
+    } else {
+        // Mock logout
+        res.clearCookie('authToken');
+        res.redirect(process.env.FRONTEND_URL);
+    }
 })
 
 export default router

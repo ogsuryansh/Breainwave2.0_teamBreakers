@@ -34,7 +34,26 @@ const config = {
     }
 }
 
-app.use(auth(config))
+const isAuth0Configured = process.env.AUTH0_ISSUER_BASE_URL &&
+    !process.env.AUTH0_ISSUER_BASE_URL.includes('your-domain') &&
+    process.env.AUTH0_CLIENT_ID !== 'your_auth0_client_id';
+
+if (isAuth0Configured) {
+    app.use(auth(config))
+} else {
+    console.warn("⚠️  AUTH0 CONFIGURATION MISSING OR DEFAULT. Starting in DEV MODE.")
+    console.warn("⚠️  /api/auth/auth0-login will perform a mock login.")
+
+    // Mock OIDC middleware to prevent crashes
+    app.use((req, res, next) => {
+        req.oidc = {
+            isAuthenticated: () => false,
+            user: null,
+            login: (options) => res.redirect('/api/auth/mock-login') // Redirect to internal mock login
+        }
+        next()
+    })
+}
 
 app.get('/', (req, res) => {
     res.json({
