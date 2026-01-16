@@ -1,54 +1,51 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import './App.css'
 import Hero from './components/Hero'
 import SelectionForm from './components/SelectionForm'
 import Timeline from './components/Timeline'
 import RealityCheckMeter from './components/RealityCheckMeter'
 import Navigation from './components/Navigation'
+import Sidebar from './components/Sidebar'
 
 function App() {
   const [roadmapData, setRoadmapData] = useState(null)
-  const [currentStep, setCurrentStep] = useState('hero')
+  const [showRoadmap, setShowRoadmap] = useState(false)
+  const selectionFormRef = useRef(null)
 
   const handleStart = () => {
-    setCurrentStep('form')
+    selectionFormRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
   }
 
   const handleBackToHero = () => {
-    setCurrentStep('hero')
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
   }
 
   const handleGenerateRoadmap = (data) => {
     setRoadmapData(data)
-    setCurrentStep('roadmap')
+    setShowRoadmap(true)
   }
 
   const handleBackToForm = () => {
-    setCurrentStep('form')
+    setShowRoadmap(false)
   }
 
-  return (
-    <div className="min-h-screen bg-midnight-bg text-white overflow-hidden">
-      <div className="fixed inset-0 -z-50">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-midnight-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-midnight-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-1/2 w-96 h-96 bg-midnight-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-      </div>
+  if (showRoadmap) {
+    return (
+      <div className="min-h-screen bg-midnight-bg text-white overflow-hidden">
+        <div className="fixed inset-0 -z-50">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-midnight-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-midnight-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute -bottom-8 left-1/2 w-96 h-96 bg-midnight-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
 
-      <Navigation />
+        <Navigation />
 
-      {currentStep === 'hero' && (
-        <Hero onStart={handleStart} />
-      )}
-
-      {currentStep === 'form' && (
-        <SelectionForm
-          onBack={handleBackToHero}
-          onGenerateRoadmap={handleGenerateRoadmap}
-        />
-      )}
-
-      {currentStep === 'roadmap' && (
         <div className="pt-20 px-4 sm:px-6 lg:px-8 animate-fade-in">
           <button
             onClick={handleBackToForm}
@@ -77,9 +74,32 @@ function App() {
             </div>
           </div>
         </div>
-      )}
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-midnight-bg text-white overflow-x-hidden scroll-smooth">
+      <div className="fixed inset-0 -z-50">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-midnight-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-midnight-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-1/2 w-96 h-96 bg-midnight-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      </div>
+
+      <Navigation />
+      <Sidebar />
+
+      <Hero onStart={handleStart} />
+
+      <div ref={selectionFormRef}>
+        <SelectionForm
+          onBack={handleBackToHero}
+          onGenerateRoadmap={handleGenerateRoadmap}
+        />
+      </div>
     </div>
   )
 }
 
 export default App
+

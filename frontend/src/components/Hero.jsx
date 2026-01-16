@@ -6,17 +6,55 @@ export default function Hero({ onStart }) {
         <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-midnight-primary/20 blur-[120px] animate-pulse delay-1000" />
       </div>
 
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="particleGradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#7000FF" stopOpacity="0.3" />
+            <stop offset="50%" stopColor="#00D1FF" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#7000FF" stopOpacity="0.1" />
+          </radialGradient>
+        </defs>
+        <circle cx="50%" cy="50%" r="35%" fill="url(#particleGradient)" className="animate-pulse" />
+        {Array.from({ length: 100 }).map((_, i) => {
+          const angle = (i / 100) * Math.PI * 2
+          const radius = 30 + (i % 3) * 5
+          const cx = 50 + Math.cos(angle) * radius
+          const cy = 50 + Math.sin(angle) * radius
+          return (
+            <circle
+              key={i}
+              cx={`${cx}%`}
+              cy={`${cy}%`}
+              r="1"
+              fill="#00D1FF"
+              opacity={0.3 + (i % 3) * 0.2}
+            />
+          )
+        })}
+        {Array.from({ length: 50 }).map((_, i) => {
+          const angle1 = (i / 50) * Math.PI * 2
+          const angle2 = ((i + 1) / 50) * Math.PI * 2
+          const radius = 35
+          const x1 = 50 + Math.cos(angle1) * radius
+          const y1 = 50 + Math.sin(angle1) * radius
+          const x2 = 50 + Math.cos(angle2) * radius
+          const y2 = 50 + Math.sin(angle2) * radius
+          return (
+            <line
+              key={`line-${i}`}
+              x1={`${x1}%`}
+              y1={`${y1}%`}
+              x2={`${x2}%`}
+              y2={`${y2}%`}
+              stroke="#7000FF"
+              strokeWidth="0.5"
+              opacity="0.2"
+            />
+          )
+        })}
+      </svg>
 
-      <div className="fixed left-0 top-0 h-screen w-20 border-r border-white/5 flex flex-col justify-center items-center space-y-8 z-40 bg-black/20 backdrop-blur-sm hidden lg:flex">
-        {['00', '01', '02', '03', '04', '05', '06'].map((num, idx) => (
-          <div key={num} className={`text-sm font-mono ${idx === 0 ? 'text-midnight-primary' : 'text-gray-600'} hover:text-midnight-primary transition duration-300 cursor-pointer`}>
-            {num}
-          </div>
-        ))}
-      </div>
-
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 pt-20 pb-10">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 lg:px-20 pt-20 pb-10">
         <div className="text-center animate-fade-in relative z-10">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] bg-gradient-to-r from-midnight-secondary/30 to-midnight-primary/30 blur-[80px] -z-10 rounded-full" />
 
@@ -46,7 +84,7 @@ export default function Hero({ onStart }) {
           </button>
         </div>
 
-        <div className="fixed bottom-0 left-0 right-0 flex justify-between items-center px-8 py-6 border-t border-white/5 backdrop-blur-sm z-30">
+        <div className="fixed bottom-0 left-0 right-0 flex justify-between items-center px-8 lg:px-20 py-6 border-t border-white/5 backdrop-blur-sm z-30">
           <div className="flex items-center space-x-6 text-sm">
             <a href="#" className="text-gray-500 hover:text-midnight-primary transition">Twitter</a>
             <a href="#" className="text-gray-500 hover:text-midnight-primary transition">LinkedIn</a>
