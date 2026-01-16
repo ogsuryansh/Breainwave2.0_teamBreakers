@@ -56,6 +56,25 @@ export const generateRoadmap = async (req, res) => {
     }
 }
 
+export const getLatestRoadmap = async (req, res) => {
+    try {
+        const roadmap = await Roadmap.findOne({ user: req.user._id })
+            .sort({ createdAt: -1 }) // Get the most recent one
+
+        if (!roadmap) {
+            return res.json({ success: true, data: null })
+        }
+
+        res.json({
+            success: true,
+            data: roadmap
+        })
+    } catch (error) {
+        console.error('Error fetching latest roadmap:', error)
+        res.status(500).json({ error: 'Server error' })
+    }
+}
+
 export const generateAudio = async (req, res) => {
     try {
         const { roadmap } = req.body

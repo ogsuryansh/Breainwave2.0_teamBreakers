@@ -11,7 +11,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import GPACalculator from './components/GPACalculator'
 import MyRoadmaps from './components/MyRoadmaps'
-import { generateRoadmap as generateRoadmapAPI, generateAudio, deleteRoadmap } from './services/api'
+import { generateRoadmap as generateRoadmapAPI, generateAudio, deleteRoadmap, getLatestRoadmap } from './services/api'
 import html2pdf from 'html2pdf.js'
 
 function HomePage() {
@@ -20,6 +20,17 @@ function HomePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const selectionFormRef = useRef(null)
+
+  useState(() => {
+    const fetchLatest = async () => {
+      const saved = await getLatestRoadmap()
+      if (saved) {
+        setRoadmapData(saved)
+        setShowRoadmap(true)
+      }
+    }
+    fetchLatest()
+  }, [])
 
   const handleDownloadPDF = () => {
     const element = document.getElementById('roadmap-pdf-content');

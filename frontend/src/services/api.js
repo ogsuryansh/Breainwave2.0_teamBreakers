@@ -29,6 +29,28 @@ export const generateRoadmap = async (formData) => {
     }
 }
 
+export const getLatestRoadmap = async () => {
+    try {
+        const response = await fetch(`${API_URL}/api/roadmap/latest`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        })
+
+        if (!response.ok) {
+            // It's possible the user is not authenticated or has no roadmap, handle gracefully
+            if (response.status === 401) return null;
+            const errorData = await response.json()
+            throw new Error(errorData.error || 'Failed to fetch roadmap')
+        }
+
+        const data = await response.json()
+        return data.data
+    } catch (error) {
+        console.error('API Error:', error)
+        return null
+    }
+}
+
 export const generateAudio = async (roadmapData) => {
     try {
         const response = await fetch(`${API_URL}/api/roadmap/audio`, {

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 
+import logo from '../assets/campusHustle.jpeg'
+
 export default function Navigation() {
   const { user, isAuthenticated, logout } = useAuth0()
 
@@ -9,11 +11,8 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center gap-3 group cursor-pointer">
-            <div className="relative w-10 h-10 flex items-center justify-center">
-              <div className="absolute inset-0 bg-gradient-to-r from-midnight-primary to-midnight-secondary rounded-xl rotate-6 opacity-50 group-hover:rotate-12 transition-transform duration-300 blur-sm" />
-              <div className="relative w-full h-full bg-gradient-to-r from-midnight-primary to-midnight-secondary rounded-xl flex items-center justify-center shadow-lg hover:shadow-midnight-primary/25 transition-all duration-300">
-                <span className="text-white font-black text-lg">CH</span>
-              </div>
+            <div className="relative w-10 h-10 flex items-center justify-center overflow-hidden rounded-xl">
+              <img src={logo} alt="Campus Hustle Logo" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300" />
             </div>
             <span className="text-xl font-bold text-white tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">
               Campus Hustle
