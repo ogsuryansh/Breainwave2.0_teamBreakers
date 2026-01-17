@@ -6,40 +6,52 @@ const ENDPOINT_ID = 'predefined-openai-gpt4.1-nano';
 export const handleChat = async (req, res) => {
     try {
         const { message } = req.body;
-
         if (!message || message.trim().length === 0) {
-            return res.status(400).json({
-                success: false,
-                error: 'Message is required'
-            });
+            return res.status(400).json({ success: false, error: 'Message is required' });
         }
 
         console.log(`💬 Chat request: ${message.substring(0, 50)}...`);
-
         const API_KEY = process.env.ONDEMAND_API_KEY;
 
         if (!API_KEY) {
-            console.error("❌ ONDEMAND_API_KEY is missing!");
             return res.json({
                 success: true,
-                reply: "I'm here to help! I can assist you with:\n\n" +
-                    "✅ Course recommendations\n" +
-                    "✅ Career advice\n" +
-                    "✅ Study tips\n" +
-                    "✅ Roadmap guidance\n" +
-                    "✅ Tech trends\n\n" +
-                    "What would you like to know?"
+                reply: "I'm here to help! (API Key missing) Ask me about roadmaps."
             });
         }
 
-        const prompt = `You are a helpful AI assistant for "Campus Hustle" - a platform that helps students with academic and career planning. 
+        // STEP 1: Create a Session
+        const sessionOptions = {
+            hostname: 'api.on-demand.io',
+            path: '/chat/v1/sessions',
+            method: 'POST',
+            headers: { 'apikey': API_KEY }
+        };
 
-User question: ${message}
+        const sessionId = await new Promise((resolve, reject) => {
+            const req = https.request(sessionOptions, (res) => {
+                let body = '';
+                res.on('data', chunk => body += chunk);
+                res.on('end', () => {
+                    if (res.statusCode === 201 || res.statusCode === 200) {
+                        try {
+                            const data = JSON.parse(body);
+                            resolve(data.data.id); // Extract Session ID
+                        } catch (e) { reject(new Error("Failed to parse session ID")); }
+                    } else {
+                        reject(new Error(`Session creation failed: ${res.statusCode} ${body}`));
+                    }
+                });
+            });
+            req.on('error', reject);
+            req.end();
+        });
 
-Provide a helpful, concise, and friendly response. Keep it under 150 words. Be encouraging and supportive. If asked about campus hustle features, mention roadmap generation, personalized learning paths, and career guidance.`;
+        console.log(`✅ Session Created: ${sessionId}`);
 
+        // STEP 2: Query the Session
         const requestData = JSON.stringify({
-            query: prompt,
+            query: message,
             endpointId: ENDPOINT_ID,
             responseMode: "sync",
             maxTokens: 300
@@ -47,14 +59,16 @@ Provide a helpful, concise, and friendly response. Keep it under 150 words. Be e
 
         const options = {
             hostname: 'api.on-demand.io',
-            path: `/chat/v1/sessions/${Date.now()}/query`, // Use dynamic session ID
+            path: `/chat/v1/sessions/${Date.now()}/query`,
             method: 'POST',
             headers: {
                 'apikey': API_KEY,
                 'Content-Type': 'application/json',
-                'Content-Length': requestData.length
+                'Content-Length': Buffer.byteLength(requestData)
             }
         };
+
+        console.log(`📡 Sending request to: https://${options.hostname}${options.path}`);
 
         const apiResponse = await new Promise((resolve, reject) => {
             const apiReq = https.request(options, (apiRes) => {
@@ -66,8 +80,14 @@ Provide a helpful, concise, and friendly response. Keep it under 150 words. Be e
 
                 apiRes.on('end', () => {
                     if (apiRes.statusCode !== 200) {
-                        console.error(`API failed with ${apiRes.statusCode}`);
-                        reject(new Error('API request failed'));
+                        console.error(`❌ API Failed. Status: ${apiRes.statusCode}`);
+                        try {
+                            const errorBody = JSON.parse(body);
+                            console.error("❌ Error Details:", util.inspect(errorBody, { depth: null, colors: true }));
+                        } catch (e) {
+                            console.error("❌ Raw Error Body:", body);
+                        }
+                        reject(new Error(`API request failed with status ${apiRes.statusCode}`));
                         return;
                     }
 
@@ -76,17 +96,22 @@ Provide a helpful, concise, and friendly response. Keep it under 150 words. Be e
                         if (response.data && response.data.answer) {
                             resolve(response.data.answer.trim());
                         } else {
-                            console.warn("API returned invalid structure:", JSON.stringify(response));
-                            reject(new Error('Invalid API response structure'));
+                            console.warn("⚠️ Valid Status 200 but invalid structure:", JSON.stringify(response));
+                            if (response.message) console.warn("Msg:", response.message);
+                            resolve("I'm having a bit of trouble understanding, could you rephrase?"); // Fallback instead of error
                         }
                     } catch (error) {
-                        console.error("JSON Parse Error:", util.inspect(error));
+                        console.error("❌ JSON Parse Error:", util.inspect(error));
                         reject(error);
                     }
                 });
             });
 
-            apiReq.on('error', reject);
+            apiReq.on('error', (e) => {
+                console.error("❌ Network/Request Error:", e);
+                reject(e);
+            });
+
             apiReq.write(requestData);
             apiReq.end();
         });
