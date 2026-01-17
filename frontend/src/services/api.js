@@ -8,6 +8,94 @@ const getAuthHeaders = () => {
     }
 }
 
+// Enhanced Roadmap and Resume Analysis APIs
+export const analyzeResume = async (formData) => {
+    try {
+        const response = await fetch(`${API_URL}/api/resume/analyze`, {
+            method: 'POST',
+            headers: {
+                // Remove Content-Type for FormData - browser sets it automatically
+                'Authorization': getAuthHeaders().Authorization || ''
+            },
+            body: formData
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json()
+            throw new Error(errorData.error || 'Failed to analyze resume')
+        }
+
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.error('Resume Analysis Error:', error)
+        throw error
+    }
+}
+
+export const getResumeRoles = async () => {
+    try {
+        const response = await fetch(`${API_URL}/api/resume/roles`, {
+            method: 'GET',
+            headers: getAuthHeaders()
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json()
+            throw new Error(errorData.error || 'Failed to fetch roles')
+        }
+
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.error('Roles API Error:', error)
+        return { success: false, roles: [] }
+    }
+}
+
+export const generateEnhancedRoadmap = async (userData) => {
+    try {
+        const response = await fetch(`${API_URL}/api/resume/enhanced`, {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify(userData)
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json()
+            throw new Error(errorData.error || 'Failed to generate enhanced roadmap')
+        }
+
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.error('Enhanced Roadmap Error:', error)
+        throw error
+    }
+}
+
+export const saveEnhancedRoadmap = async (roadmapData) => {
+    try {
+        const response = await fetch(`${API_URL}/api/resume/save-enhanced`, {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify(roadmapData)
+        })
+
+        if (!response.ok) {
+            const errorData = await response.json()
+            throw new Error(errorData.error || 'Failed to save enhanced roadmap')
+        }
+
+        const data = await response.json()
+        return data
+    } catch (error) {
+        console.error('Save Roadmap Error:', error)
+        throw error
+    }
+}
+
+// Original APIs (keep existing)
 export const generateRoadmap = async (formData) => {
     try {
         const response = await fetch(`${API_URL}/api/roadmap/generate`, {
@@ -37,7 +125,6 @@ export const getLatestRoadmap = async () => {
         })
 
         if (!response.ok) {
-            // It's possible the user is not authenticated or has no roadmap, handle gracefully
             if (response.status === 401) return null;
             const errorData = await response.json()
             throw new Error(errorData.error || 'Failed to fetch roadmap')
