@@ -19,8 +19,6 @@ export default {
         'fade-in': 'fadeIn 0.8s ease-in-out',
         'shimmer': 'shimmer 2s infinite',
         'gradient': 'gradient 8s linear infinite',
-        'blob': 'blob 7s infinite',
-        'fade-in': 'fadeIn 0.5s ease-in-out',
         'spin-slow': 'spin 3s linear infinite',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'bounce-slow': 'bounce 2s infinite',

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   ArrowLeft, User, GraduationCap, Calendar, Rocket, Users,
@@ -10,7 +10,6 @@ import {
 
 export default function ProfileDashboard() {
   const { user: auth0User, isAuthenticated: isAuth0Authenticated, logout } = useAuth0()
-  const navigate = useNavigate()
 
   // Custom auth check
   const localUserStr = localStorage.getItem('user')
