@@ -1,4 +1,5 @@
 import https from 'https';
+import util from 'util';
 
 const ENDPOINT_ID = 'predefined-openai-gpt4.1-nano';
 
@@ -46,7 +47,7 @@ Provide a helpful, concise, and friendly response. Keep it under 150 words. Be e
 
         const options = {
             hostname: 'api.on-demand.io',
-            path: '/chat/v1/sessions/query',
+            path: `/chat/v1/sessions/${Date.now()}/query`, // Use dynamic session ID
             method: 'POST',
             headers: {
                 'apikey': API_KEY,
@@ -74,10 +75,11 @@ Provide a helpful, concise, and friendly response. Keep it under 150 words. Be e
                         const response = JSON.parse(body);
                         if (response.data && response.data.answer) {
                             resolve(response.data.answer.trim());
-                        } else {
-                            reject(new Error('Invalid API response'));
+                            console.warn("API returned invalid structure:", JSON.stringify(response));
+                            reject(new Error('Invalid API response structure'));
                         }
                     } catch (error) {
+                        console.error("JSON Parse Error:", util.inspect(error));
                         reject(error);
                     }
                 });

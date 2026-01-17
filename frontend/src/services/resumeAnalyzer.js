@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api/resume';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api/resume';
 
 export const resumeAnalyzerService = {
   // Upload and analyze resume
@@ -37,7 +37,7 @@ export const resumeAnalyzerService = {
   generateRoadmapWithSkills(analysisResult, baseRoadmap) {
     const missingSkills = analysisResult.analysis?.missing_keywords || [];
     const score = analysisResult.analysis?.score || 0;
-    
+
     // Add missing skills to roadmap milestones
     const enhancedRoadmap = baseRoadmap.map((month, index) => {
       if (index < 3 && missingSkills.length > 0) {

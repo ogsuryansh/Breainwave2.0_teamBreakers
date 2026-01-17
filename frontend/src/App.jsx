@@ -312,6 +312,11 @@ function HomePage() {
           error={error}
         />
       </div>
+
+      {/* About Section (3rd page section) */}
+      <div id="about-section">
+        <AboutPage embedded={true} />
+      </div>
     </div>
   )
 }
