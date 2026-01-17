@@ -1,17 +1,25 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { 
-  ArrowLeft, User, GraduationCap, Calendar, Rocket, Users, 
+import {
+  ArrowLeft, User, GraduationCap, Calendar, Rocket, Users,
   Lightbulb, FileText, Edit3, Save, X, MapPin, Mail, Clock,
   BookOpen, Target, Award, TrendingUp, Settings, LogOut,
   ChevronRight, Sparkles, BarChart3, CheckCircle
 } from 'lucide-react'
 
 export default function ProfileDashboard() {
-  const { user, isAuthenticated, logout } = useAuth0()
+  const { user: auth0User, isAuthenticated: isAuth0Authenticated, logout } = useAuth0()
   const navigate = useNavigate()
-  
+
+  // Custom auth check
+  const localUserStr = localStorage.getItem('user')
+  const localUser = localUserStr ? JSON.parse(localUserStr) : null
+  const isLocalAuthenticated = !!localStorage.getItem('authToken')
+
+  const isAuthenticated = isAuth0Authenticated || isLocalAuthenticated
+  const user = localUser || auth0User
+
   const [isEditing, setIsEditing] = useState(false)
   const [profileData, setProfileData] = useState({
     branch: '',
@@ -24,7 +32,7 @@ export default function ProfileDashboard() {
     targetCompanies: '',
     skills: []
   })
-  
+
   const [savedRoadmaps, setSavedRoadmaps] = useState([])
   const [attendanceStats, setAttendanceStats] = useState(null)
 
@@ -34,11 +42,11 @@ export default function ProfileDashboard() {
     if (savedProfile) {
       setProfileData(JSON.parse(savedProfile))
     }
-    
+
     // Load roadmaps
     const roadmaps = JSON.parse(localStorage.getItem('savedRoadmaps') || '[]')
     setSavedRoadmaps(roadmaps)
-    
+
     // Load attendance data if any
     const attendance = localStorage.getItem('attendanceStats')
     if (attendance) {
@@ -134,7 +142,7 @@ export default function ProfileDashboard() {
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
             Back to Home
           </Link>
-          
+
           <div className="flex items-center gap-3">
             {isEditing ? (
               <>
@@ -174,12 +182,12 @@ export default function ProfileDashboard() {
               <div className="h-24 bg-gradient-to-r from-midnight-primary via-purple-500 to-midnight-secondary relative">
                 <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
               </div>
-              
+
               {/* Profile Info */}
               <div className="px-6 pb-6">
                 <div className="relative -mt-12 mb-4">
                   <img
-                    src={user?.picture}
+                    src={user?.avatar || user?.picture}
                     alt={user?.name}
                     referrerPolicy="no-referrer"
                     className="w-24 h-24 rounded-2xl border-4 border-midnight-bg object-cover shadow-xl"
@@ -192,34 +200,34 @@ export default function ProfileDashboard() {
                     <CheckCircle className="w-4 h-4 text-white" />
                   </div>
                 </div>
-                
+
                 <h2 className="text-2xl font-bold text-white mb-1">{user?.name || 'User'}</h2>
                 <p className="text-gray-400 text-sm flex items-center gap-2 mb-4">
                   <Mail className="w-4 h-4" />
                   {user?.email}
                 </p>
-                
+
                 {profileData.branch && (
                   <div className="flex items-center gap-2 text-sm text-gray-300 mb-2">
                     <GraduationCap className="w-4 h-4 text-midnight-primary" />
                     {profileData.branch}
                   </div>
                 )}
-                
+
                 {profileData.semester && (
                   <div className="flex items-center gap-2 text-sm text-gray-300 mb-2">
                     <Calendar className="w-4 h-4 text-purple-400" />
                     {profileData.semester}
                   </div>
                 )}
-                
+
                 {profileData.techTeam && profileData.techTeam !== 'None' && (
                   <div className="flex items-center gap-2 text-sm text-gray-300 mb-2">
                     <Rocket className="w-4 h-4 text-orange-400" />
                     {profileData.techTeam}
                   </div>
                 )}
-                
+
                 {profileData.society && profileData.society !== 'None' && (
                   <div className="flex items-center gap-2 text-sm text-gray-300">
                     <Users className="w-4 h-4 text-pink-400" />
@@ -311,7 +319,7 @@ export default function ProfileDashboard() {
                 <GraduationCap className="w-6 h-6 text-midnight-primary" />
                 Academic Details
               </h3>
-              
+
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Branch */}
                 <div>
@@ -402,7 +410,7 @@ export default function ProfileDashboard() {
                 <Users className="w-6 h-6 text-purple-400" />
                 Campus Involvement
               </h3>
-              
+
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Tech Team */}
                 <div>
@@ -448,7 +456,7 @@ export default function ProfileDashboard() {
                 <Lightbulb className="w-6 h-6 text-amber-400" />
                 Interests & Passions
               </h3>
-              
+
               <div className="flex flex-wrap gap-3">
                 {interestOptions.map(interest => {
                   const isSelected = profileData.interests.includes(interest.name)
@@ -457,11 +465,10 @@ export default function ProfileDashboard() {
                       key={interest.name}
                       onClick={() => isEditing && handleInterestToggle(interest.name)}
                       disabled={!isEditing}
-                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                        isSelected
-                          ? `bg-gradient-to-r ${interest.color} text-white shadow-lg`
-                          : 'bg-white/5 text-gray-400 border border-white/10'
-                      } ${isEditing ? 'cursor-pointer hover:scale-105' : 'cursor-default'}`}
+                      className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${isSelected
+                        ? `bg-gradient-to-r ${interest.color} text-white shadow-lg`
+                        : 'bg-white/5 text-gray-400 border border-white/10'
+                        } ${isEditing ? 'cursor-pointer hover:scale-105' : 'cursor-default'}`}
                     >
                       <span className="text-lg">{interest.icon}</span>
                       {interest.name}
@@ -478,7 +485,7 @@ export default function ProfileDashboard() {
                 <Award className="w-6 h-6 text-emerald-400" />
                 Skills
               </h3>
-              
+
               {isEditing && (
                 <div className="mb-4">
                   <input
@@ -494,7 +501,7 @@ export default function ProfileDashboard() {
                   />
                 </div>
               )}
-              
+
               <div className="flex flex-wrap gap-2">
                 {profileData.skills.length > 0 ? (
                   profileData.skills.map(skill => (
@@ -525,7 +532,7 @@ export default function ProfileDashboard() {
                 <FileText className="w-6 h-6 text-pink-400" />
                 About Me
               </h3>
-              
+
               {isEditing ? (
                 <textarea
                   value={profileData.aboutMe}
@@ -556,7 +563,7 @@ export default function ProfileDashboard() {
                     View All →
                   </Link>
                 </div>
-                
+
                 <div className="space-y-3">
                   {savedRoadmaps.slice(0, 3).map((roadmap, index) => (
                     <div
