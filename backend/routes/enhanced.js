@@ -12,21 +12,10 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 // Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, '../uploads/resumes')
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true })
-    }
-    cb(null, uploadDir)
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${Math.random().toString(36).substring(7)}${path.extname(file.originalname)}`
-    cb(null, uniqueName)
-  }
-})
+// Configure multer for memory storage (Vercel compatible)
+const storage = multer.memoryStorage()
 
-const upload = multer({ 
+const upload = multer({
   storage: storage,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
   fileFilter: (req, file, cb) => {
@@ -42,11 +31,15 @@ const upload = multer({
 router.post('/analyze', upload.single('resume'), async (req, res) => {
   try {
     const { targetRole } = req.body
-    const filePath = req.file.path
+
+    // Check if file exists
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: 'No resume file uploaded' })
+    }
 
     // Simple keyword analysis (without Python for now)
     // In production, you would call a Python script here
-    
+
     // Mock analysis for development
     const mockAnalysis = {
       success: true,
@@ -69,10 +62,7 @@ router.post('/analyze', upload.single('resume'), async (req, res) => {
       ]
     }
 
-    // Clean up uploaded file
-    fs.unlink(filePath, (err) => {
-      if (err) console.error('Error deleting temp file:', err)
-    })
+    // No file cleanup needed for memory storage
 
     res.json(mockAnalysis)
 
@@ -97,7 +87,7 @@ router.get('/roles', (req, res) => {
     { id: 'ux_designer', name: 'UX Designer', icon: '🎨' },
     { id: 'devops', name: 'DevOps Engineer', icon: '⚙️' }
   ]
-  
+
   res.json({ success: true, roles })
 })
 
@@ -105,7 +95,7 @@ router.get('/roles', (req, res) => {
 router.post('/enhanced', async (req, res) => {
   try {
     const { userLevel, targetRole, timeCommitment, interests, missingSkills } = req.body
-    
+
     // Generate enhanced roadmap based on missing skills
     const enhancedRoadmap = {
       success: true,
@@ -119,7 +109,7 @@ router.post('/enhanced', async (req, res) => {
         generatedAt: new Date().toISOString()
       }
     }
-    
+
     res.json(enhancedRoadmap)
   } catch (error) {
     console.error('Error generating enhanced roadmap:', error)
@@ -134,7 +124,7 @@ router.post('/enhanced', async (req, res) => {
 router.post('/save-enhanced', async (req, res) => {
   try {
     const { roadmapData } = req.body
-    
+
     // In production, save to database
     // For now, just return success
     res.json({
@@ -155,7 +145,7 @@ router.post('/save-enhanced', async (req, res) => {
 function generateEnhancedMonths(missingSkills, targetRole) {
   const months = []
   const skillGroups = chunkArray(missingSkills, 8) // 8 skills per month max
-  
+
   for (let i = 0; i < 6; i++) {
     const monthSkills = skillGroups[i] || []
     months.push({
@@ -169,7 +159,7 @@ function generateEnhancedMonths(missingSkills, targetRole) {
       resources: getMonthResources(i, targetRole)
     })
   }
-  
+
   return months
 }
 
@@ -188,7 +178,7 @@ function getMonthTheme(monthIndex, targetRole) {
     ml_engineer: ['Python & Math', 'ML Fundamentals', 'Deep Learning', 'NLP/CV', 'MLOps', 'Projects'],
     devops: ['Linux & Git', 'Containers', 'Orchestration', 'CI/CD', 'Cloud', 'Projects']
   }
-  
+
   return themes[targetRole]?.[monthIndex] || `Phase ${monthIndex + 1}`
 }
 
