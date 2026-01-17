@@ -13,7 +13,7 @@ const teamMembers = [
     name: 'Ansh Giri',
     role: 'Full Stack Developer',
     bio: 'Passionate about building scalable web applications with modern technologies.',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ansh',
+    avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=TeamBreakers',
     github: '#',
     linkedin: '#'
   },
@@ -21,7 +21,7 @@ const teamMembers = [
     name: 'Shivam Kumar',
     role: 'Full Stack Developer',
     bio: 'Skilled in creating seamless full-stack solutions and robust application architectures.',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shivam',
+    avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=TeamBreakers',
     github: '#',
     linkedin: '#'
   },
@@ -29,7 +29,7 @@ const teamMembers = [
     name: 'Vansh',
     role: 'Team Leader',
     bio: 'Leading the vision and contributing across the entire technical stack to ensure project excellence.',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Vansh',
+    avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=TeamBreakers',
     github: '#',
     linkedin: '#'
   },
@@ -37,7 +37,7 @@ const teamMembers = [
     name: 'Tanvi Rustagi',
     role: 'Designer & PPT Expert',
     bio: 'Crafting compelling visual narratives and intuitive designs that captivate users.',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Tanvi',
+    avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=TeamBreakers',
     github: '#',
     linkedin: '#'
   }

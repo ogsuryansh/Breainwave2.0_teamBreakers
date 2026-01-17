@@ -23,6 +23,7 @@ import SmartAttendanceDashboard from './components/SmartAttendanceDashboard'
 import FAQPage from './components/FAQPage'
 import ProfileDashboard from './components/ProfileDashboard'
 import AboutPage from './components/AboutPage'
+import FeaturesPage from './components/FeaturesPage'
 import RoadmapGenerator from './components/RoadmapGenerator' // NEW IMPORT
 import Chatbot from './components/Chatbot'
 import { generateRoadmap as generateRoadmapAPI, generateAudio, deleteRoadmap, getLatestRoadmap } from './services/api'
@@ -247,7 +248,7 @@ function HomePage() {
                 onClick={() => window.location.href = '/enhanced-roadmap'}
                 className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 rounded-lg"
               >
-                🚀 Enhanced Generator
+                🚀 Advanced CV Analyzer
               </button>
             </div>
           </div>
@@ -353,6 +354,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         {/* NEW ROUTE FOR ENHANCED ROADMAP */}
         <Route path="/enhanced-roadmap" element={<EnhancedRoadmapPage />} />
+        <Route path="/features" element={<FeaturesPage />} />
       </Routes>
 
       {/* AI Chatbot - Available on all pages */}

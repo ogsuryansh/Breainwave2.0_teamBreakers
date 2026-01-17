@@ -75,6 +75,7 @@ Provide a helpful, concise, and friendly response. Keep it under 150 words. Be e
                         const response = JSON.parse(body);
                         if (response.data && response.data.answer) {
                             resolve(response.data.answer.trim());
+                        } else {
                             console.warn("API returned invalid structure:", JSON.stringify(response));
                             reject(new Error('Invalid API response structure'));
                         }

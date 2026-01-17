@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
 import { ChevronDown, Users, Rocket, BookOpen, Calendar, GraduationCap, Monitor, TrendingUp, GitBranch, CalendarCheck, Sparkles } from 'lucide-react'
@@ -8,6 +8,20 @@ import logo from '../assets/campusHustle.jpeg'
 export default function Navigation() {
   const { user: auth0User, isAuthenticated: isAuth0Authenticated, logout: auth0Logout } = useAuth0()
   const [showResourcesMenu, setShowResourcesMenu] = useState(false)
+  const timeoutRef = useRef(null)
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    setShowResourcesMenu(true)
+  }
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setShowResourcesMenu(false)
+    }, 300)
+  }
 
   // Check for custom auth (stored in localStorage)
   const localUserStr = localStorage.getItem('user')
@@ -63,17 +77,17 @@ export default function Navigation() {
               className="flex items-center gap-1 text-sm font-medium text-white transition-colors relative group bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1.5 rounded-lg hover:opacity-90"
             >
               <Sparkles className="w-4 h-4" />
-              Enhanced Roadmap
+              Advanced CV Analyzer
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
             </Link>
 
-            <a
-              href="#"
+            <Link
+              to="/features"
               className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
             >
               Features
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
-            </a>
+            </Link>
 
             <Link
               to="/about"
@@ -94,8 +108,8 @@ export default function Navigation() {
             {/* Resources Dropdown */}
             <div
               className="relative"
-              onMouseEnter={() => setShowResourcesMenu(true)}
-              onMouseLeave={() => setShowResourcesMenu(false)}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
               <button className="flex items-center gap-1 text-sm font-medium text-gray-300 hover:text-white transition-colors relative group">
                 Resources

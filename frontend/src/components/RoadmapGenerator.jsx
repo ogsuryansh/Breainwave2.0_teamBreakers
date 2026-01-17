@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { 
-  ArrowLeft, Brain, Rocket, Target, 
+import {
+  ArrowLeft, Brain, Rocket, Target,
   Calendar, BookOpen, Zap, CheckCircle,
   Download, Share2, RefreshCw, Star,
   TrendingUp, Users, Clock, Award
@@ -110,7 +110,7 @@ const RoadmapGenerator = () => {
   // Generate new roadmap
   const generateRoadmap = () => {
     setLoading(true)
-    
+
     // Simulate API call
     setTimeout(() => {
       // In real implementation, this would be an API call
@@ -123,7 +123,7 @@ const RoadmapGenerator = () => {
           'AI Recommended Priority'
         ]
       }))
-      
+
       setRoadmap(newRoadmap)
       setEnhancedRoadmap(null)
       setLoading(false)
@@ -162,7 +162,7 @@ const RoadmapGenerator = () => {
   const calculateProgress = () => {
     if (!enhancedRoadmap) return 0
     const totalSkills = enhancedRoadmap.missingSkills?.length || 0
-    const completedSkills = enhancedRoadmap.missingSkills?.filter(s => 
+    const completedSkills = enhancedRoadmap.missingSkills?.filter(s =>
       roadmap.flatMap(m => m.milestones).some(m => m.toLowerCase().includes(s))
     ).length || 0
     return totalSkills > 0 ? Math.round((completedSkills / totalSkills) * 100) : 0
@@ -179,14 +179,14 @@ const RoadmapGenerator = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">
         {/* Header */}
         <div className="mb-8">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="inline-flex items-center gap-2 text-midnight-primary hover:text-midnight-secondary transition-colors mb-6 group"
           >
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
             Back to Home
           </Link>
-          
+
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-3">
@@ -196,13 +196,13 @@ const RoadmapGenerator = () => {
                 <div>
                   <h1 className="text-3xl md:text-4xl font-bold">
                     <span className="bg-gradient-to-r from-midnight-primary via-purple-400 to-midnight-secondary bg-clip-text text-transparent">
-                      AI Roadmap Generator
+                      Advanced CV Analyzer
                     </span>
                   </h1>
                   <p className="text-gray-400">Personalized learning path with skill gap analysis</p>
                 </div>
               </div>
-              
+
               {/* Quick Stats */}
               <div className="flex flex-wrap gap-4 mt-4">
                 <div className="flex items-center gap-2 text-sm">
@@ -265,7 +265,7 @@ const RoadmapGenerator = () => {
 
         {/* Resume Analyzer Section */}
         <div className="mb-8">
-          <ResumeAnalyzer 
+          <ResumeAnalyzer
             onAnalysisComplete={handleAnalysisComplete}
             roadmapData={roadmap}
           />
@@ -277,22 +277,20 @@ const RoadmapGenerator = () => {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setActiveView('timeline')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${
-                  activeView === 'timeline'
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${activeView === 'timeline'
                     ? 'bg-gradient-to-r from-midnight-primary to-midnight-secondary text-white'
                     : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
-                }`}
+                  }`}
               >
                 <Calendar className="w-4 h-4" />
                 Timeline View
               </button>
               <button
                 onClick={() => setActiveView('skilltree')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${
-                  activeView === 'skilltree'
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${activeView === 'skilltree'
                     ? 'bg-gradient-to-r from-midnight-primary to-midnight-secondary text-white'
                     : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
-                }`}
+                  }`}
               >
                 <Brain className="w-4 h-4" />
                 Skill Tree View
@@ -310,7 +308,7 @@ const RoadmapGenerator = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-32 h-2 bg-gray-700 rounded-full overflow-hidden">
-                    <div 
+                    <div
                       className="h-full bg-gradient-to-r from-green-500 to-emerald-400 transition-all duration-500"
                       style={{ width: `${calculateProgress()}%` }}
                     ></div>
@@ -326,7 +324,7 @@ const RoadmapGenerator = () => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
                 <label className="block text-sm text-gray-400 mb-2">Current Level</label>
-                <select 
+                <select
                   value={userInputs.currentLevel}
                   onChange={(e) => updateInputs('currentLevel', e.target.value)}
                   className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white focus:border-midnight-primary focus:outline-none"
@@ -338,7 +336,7 @@ const RoadmapGenerator = () => {
               </div>
               <div>
                 <label className="block text-sm text-gray-400 mb-2">Target Role</label>
-                <select 
+                <select
                   value={userInputs.targetRole}
                   onChange={(e) => {
                     updateInputs('targetRole', e.target.value)
@@ -398,7 +396,7 @@ const RoadmapGenerator = () => {
                   <div key={monthIndex} className="relative pl-8 pb-8 border-l border-white/10 last:border-l-0 last:pb-0">
                     {/* Month Indicator */}
                     <div className="absolute -left-3 top-0 w-6 h-6 bg-gradient-to-br from-midnight-primary to-midnight-secondary rounded-full border-4 border-midnight-bg"></div>
-                    
+
                     <div className="mb-4">
                       <div className="flex items-center gap-3 mb-2">
                         <span className="text-lg font-bold text-white">Month {month.month}</span>
@@ -412,18 +410,17 @@ const RoadmapGenerator = () => {
                     {/* Milestones */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                       {month.milestones.map((milestone, milestoneIndex) => {
-                        const isFromResume = enhancedRoadmap?.missingSkills?.some(skill => 
+                        const isFromResume = enhancedRoadmap?.missingSkills?.some(skill =>
                           milestone.toLowerCase().includes(skill.toLowerCase())
                         )
-                        
+
                         return (
-                          <div 
+                          <div
                             key={milestoneIndex}
-                            className={`p-4 rounded-xl border transition-all cursor-pointer hover:scale-[1.02] ${
-                              isFromResume
+                            className={`p-4 rounded-xl border transition-all cursor-pointer hover:scale-[1.02] ${isFromResume
                                 ? 'border-green-500 bg-green-500/10'
                                 : 'border-white/10 hover:border-midnight-primary/50'
-                            }`}
+                              }`}
                             onClick={() => {
                               // Mark as complete logic
                               const newRoadmap = [...roadmap]
@@ -507,7 +504,7 @@ const RoadmapGenerator = () => {
               </div>
 
               <div className="h-[500px] border border-white/10 rounded-xl overflow-hidden">
-                <SkillTree 
+                <SkillTree
                   roadmapData={roadmap}
                   userSkills={enhancedRoadmap?.missingSkills || []}
                 />
@@ -563,7 +560,7 @@ const RoadmapGenerator = () => {
                   <div className="text-sm text-gray-400">Resume Match</div>
                 </div>
                 <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                  <div 
+                  <div
                     className="h-full bg-gradient-to-r from-green-500 to-emerald-400"
                     style={{ width: `${enhancedRoadmap.resumeScore}%` }}
                   ></div>
@@ -597,11 +594,10 @@ const RoadmapGenerator = () => {
                 { name: 'Resume Expert', desc: 'Achieve 80% match', unlocked: false }
               ].map((achievement, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                    achievement.unlocked 
-                      ? 'bg-gradient-to-br from-yellow-500 to-amber-600' 
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${achievement.unlocked
+                      ? 'bg-gradient-to-br from-yellow-500 to-amber-600'
                       : 'bg-white/5'
-                  }`}>
+                    }`}>
                     {achievement.unlocked ? (
                       <Star className="w-4 h-4 text-white" />
                     ) : (
