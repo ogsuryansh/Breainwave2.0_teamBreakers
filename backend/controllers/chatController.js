@@ -21,11 +21,19 @@ export const handleChat = async (req, res) => {
         }
 
         // STEP 1: Create a Session
+        const sessionBody = JSON.stringify({
+            externalUserId: 'user_' + Date.now()
+        });
+
         const sessionOptions = {
             hostname: 'api.on-demand.io',
             path: '/chat/v1/sessions',
             method: 'POST',
-            headers: { 'apikey': API_KEY }
+            headers: {
+                'apikey': API_KEY,
+                'Content-Type': 'application/json',
+                'Content-Length': sessionBody.length
+            }
         };
 
         const sessionId = await new Promise((resolve, reject) => {
@@ -44,6 +52,7 @@ export const handleChat = async (req, res) => {
                 });
             });
             req.on('error', reject);
+            req.write(sessionBody);
             req.end();
         });
 
@@ -59,7 +68,7 @@ export const handleChat = async (req, res) => {
 
         const options = {
             hostname: 'api.on-demand.io',
-            path: `/chat/v1/sessions/${Date.now()}/query`,
+            path: `/chat/v1/sessions/${sessionId}/query`,
             method: 'POST',
             headers: {
                 'apikey': API_KEY,
