@@ -13,6 +13,17 @@ import GPACalculator from './components/GPACalculator'
 import MyRoadmaps from './components/MyRoadmaps'
 import SocietiesPage from './components/SocietiesPage'
 import TechTeamsPage from './components/TechTeamsPage'
+import ElectivesPage from './components/ElectivesPage'
+import EventsPage from './components/EventsPage'
+import MastersPage from './components/MastersPage'
+import MoocsPage from './components/MoocsPage'
+import PlacementStatsPage from './components/PlacementStatsPage'
+import BranchesPage from './components/BranchesPage'
+import SmartAttendanceDashboard from './components/SmartAttendanceDashboard'
+import FAQPage from './components/FAQPage'
+import ProfileDashboard from './components/ProfileDashboard'
+import AboutPage from './components/AboutPage'
+import RoadmapGenerator from './components/RoadmapGenerator' // NEW IMPORT
 import { generateRoadmap as generateRoadmapAPI, generateAudio, deleteRoadmap, getLatestRoadmap } from './services/api'
 import html2pdf from 'html2pdf.js'
 
@@ -204,6 +215,13 @@ function HomePage() {
               >
                 🗑️ Delete Plan
               </button>
+              {/* NEW BUTTON: Enhanced Roadmap Generator */}
+              <button
+                onClick={() => window.location.href = '/enhanced-roadmap'}
+                className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 rounded-lg"
+              >
+                🚀 Enhanced Generator
+              </button>
             </div>
           </div>
 
@@ -276,6 +294,10 @@ function GPACalculatorPage() {
   return <GPACalculator onBack={() => navigate('/')} />
 }
 
+function EnhancedRoadmapPage() {
+  return <RoadmapGenerator />
+}
+
 function App() {
   return (
     <Router>
@@ -287,6 +309,18 @@ function App() {
         <Route path="/my-roadmaps" element={<MyRoadmaps />} />
         <Route path="/societies" element={<SocietiesPage />} />
         <Route path="/tech-teams" element={<TechTeamsPage />} />
+        <Route path="/electives" element={<ElectivesPage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/masters" element={<MastersPage />} />
+        <Route path="/moocs" element={<MoocsPage />} />
+        <Route path="/placement-stats" element={<PlacementStatsPage />} />
+        <Route path="/branches" element={<BranchesPage />} />
+        <Route path="/attendance" element={<SmartAttendanceDashboard />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/profile" element={<ProfileDashboard />} />
+        <Route path="/about" element={<AboutPage />} />
+        {/* NEW ROUTE FOR ENHANCED ROADMAP */}
+        <Route path="/enhanced-roadmap" element={<EnhancedRoadmapPage />} />
       </Routes>
     </Router>
   )

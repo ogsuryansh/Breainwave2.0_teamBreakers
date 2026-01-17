@@ -6,6 +6,8 @@
     {
       "id": 1,
       "name": "Team Inferno",
+      "image": "/images/inferno.jpeg",
+      "link": "https://www.infernodtu.in/",
       "domain": ["Robotics", "Autonomous Systems"],
       "description": "Works on robotic systems and autonomous mobile platforms.",
       "category": "Robotics"
@@ -13,6 +15,8 @@
     {
       "id": 2,
       "name": "Team Raftaar",
+      "image": "/images/raftar.jpeg",
+      "link": "https://teamraftaar.in/",
       "domain": ["Automotive", "Vehicle Dynamics"],
       "description": "Designs and builds high-performance racing vehicles.",
       "category": "Automotive"
@@ -20,6 +24,8 @@
     {
       "id": 3,
       "name": "UAS-DTU",
+      "image": "/images/uasdtu.jpeg",
+      "link": "https://uasdtu.com/",
       "domain": ["Aerospace", "Drones"],
       "description": "Unmanned Aerial Systems team focusing on UAV design and control.",
       "category": "Aerospace"
@@ -27,6 +33,8 @@
     {
       "id": 4,
       "name": "Team Super Mileage",
+      "image": "/images/smv.jpeg",
+      "link": "https://www.dtusupermileage.in/",
       "domain": ["Automotive", "Energy Efficiency"],
       "description": "Focuses on designing fuel-efficient vehicles for competitions.",
       "category": "Automotive"
@@ -34,6 +42,8 @@
     {
       "id": 5,
       "name": "DelTech Baja",
+      "image": "/images/deltech.jpeg",
+      "link": "",
       "domain": ["Automotive", "Off-road Vehicles"],
       "description": "Builds off-road vehicles for Baja SAE competitions.",
       "category": "Automotive"
@@ -41,6 +51,8 @@
     {
       "id": 6,
       "name": "Defianz Racing",
+      "image": "/images/definz.jpeg",
+      "link": "https://www.teamdefianzdtusdc.com/",
       "domain": ["Formula Student", "Automotive"],
       "description": "Formula-style race car design and manufacturing team.",
       "category": "Automotive"
@@ -48,6 +60,8 @@
     {
       "id": 7,
       "name": "UGV-DTU",
+      "image": "/images/ugv.jpeg",
+      "link": "https://ugvdtu.com/",
       "domain": ["Robotics", "Defense"],
       "description": "Develops unmanned ground vehicles for autonomous navigation.",
       "category": "Robotics"
@@ -55,6 +69,8 @@
     {
       "id": 8,
       "name": "AUV Team DTU",
+      "image": "/images/auv.jpeg",
+      "link": "https://auv-dtu.netlify.app/",
       "domain": ["Marine", "Robotics"],
       "description": "Autonomous Underwater Vehicle design and development team.",
       "category": "Robotics"
@@ -62,30 +78,38 @@
     {
       "id": 9,
       "name": "Okami Racing",
+      "image": "/images/okami.jpeg",
+      "link": "",
       "domain": ["Automotive", "Motorsports"],
       "description": "Student-led vehicle engineering and racing team.",
       "category": "Automotive"
     },
     {
-    "id": 10,
-    "name": "Team Rocketry DTU",
-    "domain": ["Aerospace", "Rocketry", "Propulsion"],
-    "description": "Student rocketry team focused on designing, building, and launching model and high-power rockets.",
-    "category": "Aerospace"
-  },
-  {
-  "id": 11,
-  "name": "Team Altair",
-  "domain": ["Robotics", "Research", "Interdisciplinary"],
-  "description": "Focuses on advanced robotics research and innovative engineering solutions.",
-  "category": "Aerospace"
-  },
-  {
-    "id": 12,
-    "name": "Team Udupi",
-    "domain": ["Robotics", "Innovation", "Interdisciplinary Engineering"],
-    "description": "Interdisciplinary technical team working on innovative engineering and problem-solving projects.",
-    "category": "Innovation"
+      "id": 10,
+      "name": "Team Rocketry DTU",
+      "image": "/images/rocketry.jpeg",
+      "link": "",
+      "domain": ["Aerospace", "Rocketry", "Propulsion"],
+      "description": "Student rocketry team focused on designing, building, and launching model and high-power rockets.",
+      "category": "Aerospace"
+    },
+    {
+      "id": 11,
+      "name": "Team Altair",
+      "image": "/images/altair.jpeg",
+      "link": "https://www.altair-dtu.in/",
+      "domain": ["Robotics", "Research", "Interdisciplinary"],
+      "description": "Focuses on advanced robotics research and innovative engineering solutions.",
+      "category": "Aerospace"
+    },
+    {
+      "id": 12,
+      "name": "Team Udupi",
+      "image": "/images/udupi.jpeg",
+      "link": "",
+      "domain": ["Robotics", "Innovation", "Interdisciplinary Engineering"],
+      "description": "Interdisciplinary technical team working on innovative engineering and problem-solving projects.",
+      "category": "Innovation"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { ChevronDown, Users, Rocket } from 'lucide-react'
+import { ChevronDown, Users, Rocket, BookOpen, Calendar, GraduationCap, Monitor, TrendingUp, GitBranch, CalendarCheck, Sparkles } from 'lucide-react'
 
 import logo from '../assets/campusHustle.jpeg'
 
@@ -12,6 +12,13 @@ export default function Navigation() {
   const resourceLinks = [
     { name: 'Societies', path: '/societies', icon: Users, color: 'text-pink-400' },
     { name: 'Tech Teams', path: '/tech-teams', icon: Rocket, color: 'text-red-400' },
+    { name: 'Electives', path: '/electives', icon: BookOpen, color: 'text-cyan-400' },
+    { name: 'Events', path: '/events', icon: Calendar, color: 'text-orange-400' },
+    { name: 'Masters', path: '/masters', icon: GraduationCap, color: 'text-purple-400' },
+    { name: 'MOOCs', path: '/moocs', icon: Monitor, color: 'text-green-400' },
+    { name: 'Placements', path: '/placement-stats', icon: TrendingUp, color: 'text-yellow-400' },
+    { name: 'Branches', path: '/branches', icon: GitBranch, color: 'text-blue-400' },
+    { name: 'Attendance', path: '/attendance', icon: CalendarCheck, color: 'text-emerald-400' },
   ]
 
   return (
@@ -28,16 +35,39 @@ export default function Navigation() {
           </Link>
 
           <div className="hidden md:flex items-center space-x-10">
-            {['Features', 'About', 'FAQ'].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
-              >
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
-              </a>
-            ))}
+            {/* ENHANCED ROADMAP LINK - ADD THIS */}
+            <Link
+              to="/enhanced-roadmap"
+              className="flex items-center gap-1 text-sm font-medium text-white transition-colors relative group bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1.5 rounded-lg hover:opacity-90"
+            >
+              <Sparkles className="w-4 h-4" />
+              Enhanced Roadmap
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
+            </Link>
+            
+            <a
+              href="#"
+              className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
+            >
+              Features
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
+            </a>
+            
+            <Link
+              to="/about"
+              className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
+            >
+              About
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
+            </Link>
+            
+            <Link
+              to="/faq"
+              className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
+            >
+              FAQ
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
+            </Link>
             
             {/* Resources Dropdown */}
             <div 
@@ -78,21 +108,21 @@ export default function Navigation() {
 
           {isAuthenticated ? (
             <div className="flex items-center gap-4">
-              <div className="flex flex-col items-center">
+              <Link to="/profile" className="flex flex-col items-center group cursor-pointer">
                 <img
                   src={user?.picture}
                   alt={user?.name}
                   referrerPolicy="no-referrer"
-                  className="w-8 h-8 rounded-full border border-white/20 shadow-sm object-cover"
+                  className="w-8 h-8 rounded-full border border-white/20 shadow-sm object-cover group-hover:border-midnight-primary group-hover:ring-2 group-hover:ring-midnight-primary/50 transition-all"
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src = "https://cdn.auth0.com/avatars/default.png";
                   }}
                 />
-                <span className="text-[10px] text-gray-400 font-medium leading-tight mt-0.5 max-w-[60px] truncate">
+                <span className="text-[10px] text-gray-400 font-medium leading-tight mt-0.5 max-w-[60px] truncate group-hover:text-midnight-primary transition-colors">
                   {user?.given_name || user?.nickname || 'User'}
                 </span>
-              </div>
+              </Link>
               <button
                 onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
                 className="px-6 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-medium rounded-full border border-red-500/20 transition-all duration-300"
@@ -113,4 +143,3 @@ export default function Navigation() {
     </nav>
   )
 }
-
