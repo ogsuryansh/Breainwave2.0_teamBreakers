@@ -57,3 +57,42 @@ export const protect = async (req, res, next) => {
     // 3. If neither worked, unauthorized
     return res.status(401).json({ error: 'Not authorized to access this route' })
 }
+
+// Optional auth - allows unauthenticated access but attaches user if available
+export const optionalAuth = async (req, res, next) => {
+    let token
+
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith('Bearer')
+    ) {
+        token = req.headers.authorization.split(' ')[1]
+    } else if (req.cookies.authToken) {
+        token = req.cookies.authToken
+    }
+
+    if (token) {
+        try {
+            const crypto = await import('crypto')
+            const hashedToken = crypto.default
+                .createHash('sha256')
+                .update(token)
+                .digest('hex')
+
+            const User = (await import('../models/User.js')).default
+            const user = await User.findOne({
+                authToken: hashedToken,
+                authTokenExpire: { $gt: Date.now() }
+            })
+
+            if (user) {
+                req.user = user
+            }
+        } catch (error) {
+            console.warn("Optional auth check failed:", error.message)
+        }
+    }
+
+    // Continue without requiring auth
+    next()
+}

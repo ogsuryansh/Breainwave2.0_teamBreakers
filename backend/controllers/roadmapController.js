@@ -3,6 +3,7 @@ import { generateRoadmapAudio, createRoadmapSummary } from '../services/elevenLa
 import { calculateMetrics } from '../utils/calculateMetrics.js'
 import Roadmap from '../models/Roadmap.js'
 import User from '../models/User.js'
+import mongoose from 'mongoose'
 
 export const generateRoadmap = async (req, res) => {
     try {
@@ -17,30 +18,39 @@ export const generateRoadmap = async (req, res) => {
         const aiRoadmap = await generateRoadmapWithAI(branch, semester, interests)
         const metrics = calculateMetrics(branch, semester, interests)
 
-        // Save to Database
-        const newRoadmap = await Roadmap.create({
-            user: req.user._id,
-            branch,
-            semester,
-            interests,
-            targetRole: aiRoadmap.targetRole,
-            timeline: aiRoadmap.timeline,
-            skills: aiRoadmap.skills,
-            projects: aiRoadmap.projects,
-            resources: aiRoadmap.resources,
-            metrics
-        })
+        let roadmapId = null
 
-        // Link to User
-        await User.findByIdAndUpdate(req.user._id, {
-            $push: { roadmaps: newRoadmap._id }
-        })
+        // Only save to database if MongoDB is connected and user is authenticated
+        if (mongoose.connection.readyState === 1 && req.user) {
+            try {
+                const newRoadmap = await Roadmap.create({
+                    user: req.user._id,
+                    branch,
+                    semester,
+                    interests,
+                    targetRole: aiRoadmap.targetRole,
+                    timeline: aiRoadmap.timeline,
+                    skills: aiRoadmap.skills,
+                    projects: aiRoadmap.projects,
+                    resources: aiRoadmap.resources,
+                    metrics
+                })
+
+                await User.findByIdAndUpdate(req.user._id, {
+                    $push: { roadmaps: newRoadmap._id }
+                })
+
+                roadmapId = newRoadmap._id
+            } catch (dbError) {
+                console.warn('Could not save to database:', dbError.message)
+            }
+        }
 
         res.json({
             success: true,
             data: {
                 ...aiRoadmap,
-                _id: newRoadmap._id, // Send back the ID for deletion/editing
+                _id: roadmapId,
                 metrics,
                 branch,
                 semester,
