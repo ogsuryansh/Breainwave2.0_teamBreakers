@@ -1,6 +1,45 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+
+// InputField component moved outside to prevent re-creation on every render
+const InputField = ({ name, type, placeholder, icon, value, onChange, onFocus, onBlur, isFocused }) => {
+    const hasValue = value.length > 0;
+
+    return (
+        <div className="group relative">
+            <label
+                className={`absolute left-4 transition-all duration-300 pointer-events-none ${isFocused || hasValue
+                    ? '-top-2.5 text-xs text-[#00D1FF] bg-[#0A0A0B] px-2'
+                    : 'top-3.5 text-gray-500'
+                    }`}
+            >
+                {placeholder}
+            </label>
+            <input
+                type={type}
+                name={name}
+                value={value}
+                onChange={onChange}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                autoComplete={
+                    name === 'email' ? 'email' :
+                        name === 'password' || name === 'confirmPassword' ? 'new-password' :
+                            name === 'username' ? 'username' :
+                                'off'
+                }
+                className="w-full bg-[#1A1A1E] border border-gray-800 rounded-xl px-4 py-3.5 text-white outline-none focus:border-[#00D1FF] focus:shadow-[0_0_20px_rgba(0,209,255,0.3)] transition-all duration-300"
+                required
+            />
+            {icon && (
+                <div className="absolute right-4 top-3.5 text-gray-600">
+                    {icon}
+                </div>
+            )}
+        </div>
+    );
+};
 
 const Register = () => {
     const navigate = useNavigate();
@@ -36,12 +75,14 @@ const Register = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
+    const handleChange = useCallback((e) => {
+        const { name, value } = e.target;
+        console.log('Input changed:', name, value); // Debug log
+        setFormData(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    }, []);
 
     const handleCollegeSelect = (college) => {
         setFormData({ ...formData, college: college.split(' ')[0] }); // Just taking the abbr for state, or full if you prefer
@@ -50,6 +91,7 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (formData.password !== formData.confirmPassword) {
             alert('Passwords do not match!');
             return;
@@ -95,32 +137,6 @@ const Register = () => {
         });
     };
 
-    const InputField = ({ name, type, placeholder, icon }) => (
-        <div className="group relative">
-            <label
-                className={`absolute left-4 transition-all duration-300 pointer-events-none ${focusedInput === name || formData[name] ? '-top-2.5 text-xs text-[#00D1FF] bg-[#0A0A0B] px-2' : 'top-3.5 text-gray-500'
-                    }`}
-            >
-                {placeholder}
-            </label>
-            <input
-                type={type}
-                name={name}
-                value={formData[name]}
-                onChange={handleChange}
-                onFocus={() => setFocusedInput(name)}
-                onBlur={() => setFocusedInput(null)}
-                className="w-full bg-[#1A1A1E] border border-gray-800 rounded-xl px-4 py-3.5 text-white outline-none focus:border-[#00D1FF] focus:shadow-[0_0_20px_rgba(0,209,255,0.3)] transition-all duration-300"
-                required
-            />
-            {icon && (
-                <div className="absolute right-4 top-3.5 text-gray-600">
-                    {icon}
-                </div>
-            )}
-        </div>
-    );
-
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-[#0A0A0B] p-4 relative overflow-hidden">
             {/* Dynamic Background Elements */}
@@ -142,11 +158,38 @@ const Register = () => {
 
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <InputField name="fullName" type="text" placeholder="Full Name" />
-                            <InputField name="username" type="text" placeholder="Username" />
+                            <InputField
+                                name="fullName"
+                                type="text"
+                                placeholder="Full Name"
+                                value={formData.fullName ?? ''}
+                                onChange={handleChange}
+                                onFocus={() => setFocusedInput('fullName')}
+                                onBlur={() => setFocusedInput(null)}
+                                isFocused={focusedInput === 'fullName'}
+                            />
+                            <InputField
+                                name="username"
+                                type="text"
+                                placeholder="Username"
+                                value={formData.username ?? ''}
+                                onChange={handleChange}
+                                onFocus={() => setFocusedInput('username')}
+                                onBlur={() => setFocusedInput(null)}
+                                isFocused={focusedInput === 'username'}
+                            />
                         </div>
 
-                        <InputField name="email" type="email" placeholder="Email Address" />
+                        <InputField
+                            name="email"
+                            type="email"
+                            placeholder="Email Address"
+                            value={formData.email ?? ''}
+                            onChange={handleChange}
+                            onFocus={() => setFocusedInput('email')}
+                            onBlur={() => setFocusedInput(null)}
+                            isFocused={focusedInput === 'email'}
+                        />
 
                         {/* Custom Dropdown */}
                         <div className="relative" ref={dropdownRef}>
@@ -190,8 +233,26 @@ const Register = () => {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <InputField name="password" type="password" placeholder="Password" />
-                            <InputField name="confirmPassword" type="password" placeholder="Confirm Password" />
+                            <InputField
+                                name="password"
+                                type="password"
+                                placeholder="Password"
+                                value={formData.password ?? ''}
+                                onChange={handleChange}
+                                onFocus={() => setFocusedInput('password')}
+                                onBlur={() => setFocusedInput(null)}
+                                isFocused={focusedInput === 'password'}
+                            />
+                            <InputField
+                                name="confirmPassword"
+                                type="password"
+                                placeholder="Confirm Password"
+                                value={formData.confirmPassword ?? ''}
+                                onChange={handleChange}
+                                onFocus={() => setFocusedInput('confirmPassword')}
+                                onBlur={() => setFocusedInput(null)}
+                                isFocused={focusedInput === 'confirmPassword'}
+                            />
                         </div>
 
                         <button
@@ -248,7 +309,7 @@ const Register = () => {
                 </div>
 
                 {/* Right Side - Animated Visual */}
-                <div className="w-full lg:w-2/5 bg-[#0F0F12] relative overflow-hidden flex items-center justify-center min-h-[300px] lg:min-h-auto border-l border-white/5">
+                <div className="hidden lg:flex w-full lg:w-2/5 bg-[#0F0F12] relative overflow-hidden items-center justify-center min-h-[300px] lg:min-h-auto border-l border-white/5">
                     {/* Animated Solar System / Atom Visual */}
                     <div className="relative w-full h-full flex items-center justify-center">
                         {/* Orbit 1 */}

@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react'
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import { useState, useRef, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import './App.css'
 import Hero from './components/Hero'
 import SelectionForm from './components/SelectionForm'
@@ -24,6 +24,7 @@ import FAQPage from './components/FAQPage'
 import ProfileDashboard from './components/ProfileDashboard'
 import AboutPage from './components/AboutPage'
 import RoadmapGenerator from './components/RoadmapGenerator' // NEW IMPORT
+import Chatbot from './components/Chatbot'
 import { generateRoadmap as generateRoadmapAPI, generateAudio, deleteRoadmap, getLatestRoadmap } from './services/api'
 import html2pdf from 'html2pdf.js'
 
@@ -33,6 +34,32 @@ function HomePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const selectionFormRef = useRef(null)
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  // Handle authentication from URL parameters
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const token = params.get('token')
+    const userStr = params.get('user')
+
+    if (token && userStr) {
+      try {
+        const user = JSON.parse(decodeURIComponent(userStr))
+
+        // Store auth data
+        localStorage.setItem('authToken', token)
+        localStorage.setItem('user', JSON.stringify(user))
+
+        console.log('✅ Authentication successful:', user.name)
+
+        // Clean URL (remove token and user params)
+        navigate('/', { replace: true })
+      } catch (error) {
+        console.error('Failed to parse user data from URL:', error)
+      }
+    }
+  }, [location, navigate])
 
   useState(() => {
     const fetchLatest = async () => {
@@ -322,6 +349,9 @@ function App() {
         {/* NEW ROUTE FOR ENHANCED ROADMAP */}
         <Route path="/enhanced-roadmap" element={<EnhancedRoadmapPage />} />
       </Routes>
+
+      {/* AI Chatbot - Available on all pages */}
+      <Chatbot />
     </Router>
   )
 }

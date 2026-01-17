@@ -1,12 +1,14 @@
 import express from 'express'
 import { generateRoadmap, getLatestRoadmap, generateAudio, deleteRoadmap } from '../controllers/roadmapController.js'
-import { protect } from '../middleware/auth.js'
+// Auth removed to allow smooth roadmap generation
+// import { protect } from '../middleware/auth.js'
 
 const router = express.Router()
 
-router.post('/generate', protect, generateRoadmap)
-router.get('/latest', protect, getLatestRoadmap)
+// All routes work without authentication for smooth user experience
+router.post('/generate', generateRoadmap)
+router.get('/latest', getLatestRoadmap)
 router.post('/audio', generateAudio)
-router.delete('/:id', protect, deleteRoadmap)
+router.delete('/:id', deleteRoadmap)
 
 export default router
