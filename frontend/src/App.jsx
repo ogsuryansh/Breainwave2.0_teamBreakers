@@ -19,6 +19,8 @@ import MastersPage from './components/MastersPage'
 import MoocsPage from './components/MoocsPage'
 import PlacementStatsPage from './components/PlacementStatsPage'
 import BranchesPage from './components/BranchesPage'
+import SmartAttendanceDashboard from './components/SmartAttendanceDashboard'
+import FAQPage from './components/FAQPage'
 import { generateRoadmap as generateRoadmapAPI, generateAudio, deleteRoadmap, getLatestRoadmap } from './services/api'
 import html2pdf from 'html2pdf.js'
 
@@ -299,6 +301,8 @@ function App() {
         <Route path="/moocs" element={<MoocsPage />} />
         <Route path="/placement-stats" element={<PlacementStatsPage />} />
         <Route path="/branches" element={<BranchesPage />} />
+        <Route path="/attendance" element={<SmartAttendanceDashboard />} />
+        <Route path="/faq" element={<FAQPage />} />
       </Routes>
     </Router>
   )

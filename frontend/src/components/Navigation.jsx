@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from '@auth0/auth0-react'
-import { ChevronDown, Users, Rocket, BookOpen, Calendar, GraduationCap, Monitor, TrendingUp, GitBranch } from 'lucide-react'
+import { ChevronDown, Users, Rocket, BookOpen, Calendar, GraduationCap, Monitor, TrendingUp, GitBranch, CalendarCheck } from 'lucide-react'
 
 import logo from '../assets/campusHustle.jpeg'
 
@@ -18,6 +18,7 @@ export default function Navigation() {
     { name: 'MOOCs', path: '/moocs', icon: Monitor, color: 'text-green-400' },
     { name: 'Placements', path: '/placement-stats', icon: TrendingUp, color: 'text-yellow-400' },
     { name: 'Branches', path: '/branches', icon: GitBranch, color: 'text-blue-400' },
+    { name: 'Attendance', path: '/attendance', icon: CalendarCheck, color: 'text-emerald-400' },
   ]
 
   return (
@@ -34,7 +35,7 @@ export default function Navigation() {
           </Link>
 
           <div className="hidden md:flex items-center space-x-10">
-            {['Features', 'About', 'FAQ'].map((item) => (
+            {['Features', 'About'].map((item) => (
               <a
                 key={item}
                 href="#"
@@ -44,6 +45,14 @@ export default function Navigation() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
               </a>
             ))}
+            
+            <Link
+              to="/faq"
+              className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
+            >
+              FAQ
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
+            </Link>
             
             {/* Resources Dropdown */}
             <div 
