@@ -37,6 +37,49 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
+app.use(cookieParser())
+
+// Auth0 Configuration
+import { auth } from 'express-openid-connect'
+
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.AUTH0_SECRET || 'a_very_long_random_string_for_testing_only',
+  // Hardcoded fallback for production to prevent "localhost" issues if env vars are missing
+  baseURL: process.env.AUTH0_BASE_URL || (process.env.NODE_ENV === 'production' ? 'https://breainwave2-0-team-breakers.vercel.app' : 'http://localhost:5000'),
+  clientID: process.env.AUTH0_CLIENT_ID,
+  issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
+  routes: {
+    login: false,
+    callback: '/api/auth/callback'
+  }
+}
+
+// Emulate simple check from routes/auth.js to avoid mismatch
+const isAuth0Configured = config.issuerBaseURL && config.clientID;
+
+if (isAuth0Configured) {
+  app.use(auth(config))
+} else {
+  console.warn("⚠️  AUTH0 CONFIGURATION MISSING. Usage of req.oidc will fail or fallback.")
+  // Mock OIDC middleware to prevent crashes if Auth0 not set
+  app.use((req, res, next) => {
+    req.oidc = {
+      isAuthenticated: () => false,
+      user: null,
+      login: (options) => res.redirect('/api/auth/mock-login')
+    }
+    next()
+  })
+}
+
+// Ensure FRONTEND_URL is set correctly for redirects
+if (process.env.NODE_ENV === 'production' && !process.env.FRONTEND_URL) {
+  console.log("⚠️  Using hardcoded production FRONTEND_URL")
+  process.env.FRONTEND_URL = 'https://campushustle.netlify.app'
+}
+
 // Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/roadmap', roadmapRoutes)
