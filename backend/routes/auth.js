@@ -15,8 +15,7 @@ router.get('/me', protect, getMe)
 router.get('/auth0-login', (req, res) => {
     // Check if Auth0 is properly configured
     const isAuth0Configured = process.env.AUTH0_ISSUER_BASE_URL &&
-        !process.env.AUTH0_ISSUER_BASE_URL.includes('your-domain') &&
-        process.env.AUTH0_CLIENT_ID !== 'your_auth0_client_id';
+        process.env.AUTH0_CLIENT_ID;
 
     // If Auth0 is not configured, redirect to mock login
     if (!isAuth0Configured || !req.oidc || !req.oidc.login) {
