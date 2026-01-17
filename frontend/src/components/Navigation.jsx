@@ -130,34 +130,46 @@ export default function Navigation() {
 
           {isAuthenticated ? (
             <div className="flex items-center gap-4">
-              <Link to="/profile" className="flex flex-col items-center group cursor-pointer">
-                <img
-                  src={user?.avatar || user?.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${user?.name || 'User'}`}
-                  alt={user?.name}
-                  referrerPolicy="no-referrer"
-                  className="w-8 h-8 rounded-full border border-white/20 shadow-sm object-cover group-hover:border-midnight-primary group-hover:ring-2 group-hover:ring-midnight-primary/50 transition-all"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = `https://api.dicebear.com/7.x/initials/svg?seed=${user?.name || 'User'}`;
-                  }}
-                />
-                <span className="text-[10px] text-gray-400 font-medium leading-tight mt-0.5 max-w-[60px] truncate">
-                  {user?.name || user?.given_name || user?.nickname || 'User'}
-                </span>
+              <Link to="/profile" className="flex items-center gap-2 group cursor-pointer px-2 py-1 rounded-lg hover:bg-white/5 transition-all">
+                <div className="relative">
+                  <img
+                    src={user?.avatar || user?.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${user?.name || 'User'}`}
+                    alt={user?.name}
+                    referrerPolicy="no-referrer"
+                    className="w-9 h-9 rounded-full border-2 border-transparent group-hover:border-midnight-primary transition-all object-cover"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = `https://api.dicebear.com/7.x/initials/svg?seed=${user?.name || 'User'}`;
+                    }}
+                  />
+                  <div className="absolute inset-0 rounded-full shadow-[0_0_15px_rgba(0,209,255,0.3)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors max-w-[100px] truncate">
+                    {user?.name || user?.given_name || user?.nickname || 'User'}
+                  </span>
+                  <span className="text-[10px] text-gray-400 font-medium">View Profile</span>
+                </div>
               </Link>
+
               <button
                 onClick={handleLogout}
-                className="px-6 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-medium rounded-full border border-red-500/20 transition-all duration-300"
+                className="group relative px-5 py-2 rounded-full bg-white/5 border border-white/10 overflow-hidden transition-all hover:bg-red-500/10 hover:border-red-500/50 hover:shadow-[0_0_20px_rgba(239,68,68,0.3)]"
               >
-                Logout
+                <span className="relative z-10 text-sm font-semibold text-gray-300 group-hover:text-red-400 transition-colors">
+                  Logout
+                </span>
               </button>
             </div>
           ) : (
             <Link
               to="/login"
-              className="px-6 py-2.5 bg-white/5 hover:bg-white/10 text-white text-sm font-medium rounded-full border border-white/10 hover:border-midnight-primary/50 transition-all duration-300 shadow-[0_0_0_1px_rgba(0,0,0,0)] hover:shadow-[0_0_20px_rgba(0,209,255,0.2)]"
+              className="relative px-6 py-2.5 rounded-full overflow-hidden group shadow-[0_0_20px_rgba(0,209,255,0.3)] hover:shadow-[0_0_30px_rgba(0,209,255,0.5)] transition-all duration-300"
             >
-              Login
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 transition-all group-hover:scale-110" />
+              <span className="relative z-10 text-white font-bold text-sm tracking-wide flex items-center gap-2">
+                Login <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </span>
             </Link>
           )}
         </div>
