@@ -351,7 +351,9 @@ const FloatingIcon = ({ icon, delay = 0 }) => {
 }
 
 export default function SelectionForm({ onGenerateRoadmap, onBack }) {
-    const { isAuthenticated } = useAuth0()
+    const { isAuthenticated: isAuth0Authenticated } = useAuth0()
+    const isLocalAuthenticated = !!localStorage.getItem('authToken')
+    const isAuthenticated = isAuth0Authenticated || isLocalAuthenticated
 
     const [currentStep, setCurrentStep] = useState(1)
     const [formData, setFormData] = useState({

@@ -6,8 +6,30 @@ import { ChevronDown, Users, Rocket, BookOpen, Calendar, GraduationCap, Monitor,
 import logo from '../assets/campusHustle.jpeg'
 
 export default function Navigation() {
-  const { user, isAuthenticated, logout } = useAuth0()
+  const { user: auth0User, isAuthenticated: isAuth0Authenticated, logout: auth0Logout } = useAuth0()
   const [showResourcesMenu, setShowResourcesMenu] = useState(false)
+
+  // Check for custom auth (stored in localStorage)
+  const localUserStr = localStorage.getItem('user')
+  const localUser = localUserStr ? JSON.parse(localUserStr) : null
+  const isLocalAuthenticated = !!localUser
+
+  // Determine effective user and auth state
+  const isAuthenticated = isAuth0Authenticated || isLocalAuthenticated
+  const user = localUser || auth0User
+
+  const handleLogout = () => {
+    if (isAuth0Authenticated) {
+      auth0Logout({ logoutParams: { returnTo: window.location.origin } })
+    }
+    // Always clear local storage
+    localStorage.removeItem('authToken')
+    localStorage.removeItem('user')
+    // Force reload to update UI state if not waiting for Auth0 redirect
+    if (!isAuth0Authenticated) {
+      window.location.reload()
+    }
+  }
 
   const resourceLinks = [
     { name: 'Societies', path: '/societies', icon: Users, color: 'text-pink-400' },
@@ -44,7 +66,7 @@ export default function Navigation() {
               Enhanced Roadmap
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all group-hover:w-full" />
             </Link>
-            
+
             <a
               href="#"
               className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
@@ -52,7 +74,7 @@ export default function Navigation() {
               Features
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
             </a>
-            
+
             <Link
               to="/about"
               className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
@@ -60,7 +82,7 @@ export default function Navigation() {
               About
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
             </Link>
-            
+
             <Link
               to="/faq"
               className="text-sm font-medium text-gray-300 hover:text-white transition-colors relative group"
@@ -68,9 +90,9 @@ export default function Navigation() {
               FAQ
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-midnight-primary transition-all group-hover:w-full" />
             </Link>
-            
+
             {/* Resources Dropdown */}
-            <div 
+            <div
               className="relative"
               onMouseEnter={() => setShowResourcesMenu(true)}
               onMouseLeave={() => setShowResourcesMenu(false)}
@@ -80,7 +102,7 @@ export default function Navigation() {
                 <ChevronDown className={`w-4 h-4 transition-transform ${showResourcesMenu ? 'rotate-180' : ''}`} />
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 transition-all group-hover:w-full" />
               </button>
-              
+
               {showResourcesMenu && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 py-2 bg-midnight-bg/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-xl shadow-black/50 animate-fade-in">
                   {resourceLinks.map((link) => (
@@ -110,21 +132,21 @@ export default function Navigation() {
             <div className="flex items-center gap-4">
               <Link to="/profile" className="flex flex-col items-center group cursor-pointer">
                 <img
-                  src={user?.picture}
+                  src={user?.avatar || user?.picture || `https://api.dicebear.com/7.x/initials/svg?seed=${user?.name || 'User'}`}
                   alt={user?.name}
                   referrerPolicy="no-referrer"
                   className="w-8 h-8 rounded-full border border-white/20 shadow-sm object-cover group-hover:border-midnight-primary group-hover:ring-2 group-hover:ring-midnight-primary/50 transition-all"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = "https://cdn.auth0.com/avatars/default.png";
+                    e.target.src = `https://api.dicebear.com/7.x/initials/svg?seed=${user?.name || 'User'}`;
                   }}
                 />
-                <span className="text-[10px] text-gray-400 font-medium leading-tight mt-0.5 max-w-[60px] truncate group-hover:text-midnight-primary transition-colors">
-                  {user?.given_name || user?.nickname || 'User'}
+                <span className="text-[10px] text-gray-400 font-medium leading-tight mt-0.5 max-w-[60px] truncate">
+                  {user?.name || user?.given_name || user?.nickname || 'User'}
                 </span>
               </Link>
               <button
-                onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
+                onClick={handleLogout}
                 className="px-6 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-medium rounded-full border border-red-500/20 transition-all duration-300"
               >
                 Logout

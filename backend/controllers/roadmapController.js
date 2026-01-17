@@ -3,7 +3,6 @@ import { generateRoadmapAudio, createRoadmapSummary } from '../services/elevenLa
 import { calculateMetrics } from '../utils/calculateMetrics.js'
 import Roadmap from '../models/Roadmap.js'
 import User from '../models/User.js'
-import mongoose from 'mongoose'
 
 export const generateRoadmap = async (req, res) => {
     try {
@@ -15,42 +14,19 @@ export const generateRoadmap = async (req, res) => {
             })
         }
 
+        console.log(`🚀 Generating roadmap for ${branch}, Semester ${semester}, Interests: ${interests.join(', ')}`)
+
         const aiRoadmap = await generateRoadmapWithAI(branch, semester, interests)
         const metrics = calculateMetrics(branch, semester, interests)
 
-        let roadmapId = null
-
-        // Only save to database if MongoDB is connected and user is authenticated
-        if (mongoose.connection.readyState === 1 && req.user) {
-            try {
-                const newRoadmap = await Roadmap.create({
-                    user: req.user._id,
-                    branch,
-                    semester,
-                    interests,
-                    targetRole: aiRoadmap.targetRole,
-                    timeline: aiRoadmap.timeline,
-                    skills: aiRoadmap.skills,
-                    projects: aiRoadmap.projects,
-                    resources: aiRoadmap.resources,
-                    metrics
-                })
-
-                await User.findByIdAndUpdate(req.user._id, {
-                    $push: { roadmaps: newRoadmap._id }
-                })
-
-                roadmapId = newRoadmap._id
-            } catch (dbError) {
-                console.warn('Could not save to database:', dbError.message)
-            }
-        }
+        // Skip database for now - just return the roadmap for smooth user experience
+        // User can see and use roadmap immediately without authentication
 
         res.json({
             success: true,
             data: {
                 ...aiRoadmap,
-                _id: roadmapId,
+                _id: 'temp_' + Date.now(), // Temporary ID 
                 metrics,
                 branch,
                 semester,
@@ -58,7 +34,7 @@ export const generateRoadmap = async (req, res) => {
             }
         })
     } catch (error) {
-        console.error('Error generating roadmap:', error)
+        console.error('❌ Error generating roadmap:', error)
         res.status(500).json({
             error: 'Failed to generate roadmap',
             details: error.message
@@ -68,6 +44,11 @@ export const generateRoadmap = async (req, res) => {
 
 export const getLatestRoadmap = async (req, res) => {
     try {
+        // If no user is authenticated, just return null
+        if (!req.user || !req.user._id) {
+            return res.json({ success: true, data: null })
+        }
+
         const roadmap = await Roadmap.findOne({ user: req.user._id })
             .sort({ createdAt: -1 }) // Get the most recent one
 
@@ -81,7 +62,7 @@ export const getLatestRoadmap = async (req, res) => {
         })
     } catch (error) {
         console.error('Error fetching latest roadmap:', error)
-        res.status(500).json({ error: 'Server error' })
+        res.json({ success: true, data: null }) // Return null instead of error
     }
 }
 

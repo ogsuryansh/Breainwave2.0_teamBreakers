@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -12,27 +12,33 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [focusedInput, setFocusedInput] = useState(null);
 
-  useState(() => {
-    // Check for tokens in URL (from Auth0 callback)
+  useEffect(() => {
+    // Check for tokens in URL (from backend redirect after Google login)
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
-    const user = params.get('user');
+    const userStr = params.get('user');
 
-    if (token && user) {
-      localStorage.setItem('authToken', token);
-      localStorage.setItem('user', decodeURIComponent(user));
-      // Clear URL
-      window.history.replaceState({}, document.title, window.location.pathname);
-      navigate('/');
+    if (token && userStr) {
+      try {
+        const user = JSON.parse(decodeURIComponent(userStr));
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        console.log('✅ Login successful:', user.name);
+        // Navigate to home page
+        navigate('/', { replace: true });
+      } catch (error) {
+        console.error('Failed to parse user data:', error);
+      }
     }
-  }, []);
+  }, [navigate]);
 
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -191,7 +197,7 @@ const Login = () => {
           </p>
         </div>
 
-        <div className="w-full lg:w-1/2 bg-[#0F0F12] relative overflow-hidden flex items-center justify-center p-10 min-h-[400px] lg:min-h-auto border-l border-white/5">
+        <div className="hidden lg:flex w-full lg:w-1/2 bg-[#0F0F12] relative overflow-hidden items-center justify-center p-10 min-h-[400px] lg:min-h-auto border-l border-white/5">
           <div className="relative w-64 h-64 md:w-96 md:h-96">
             <svg className="w-full h-full drop-shadow-[0_0_30px_rgba(112,0,255,0.3)]" viewBox="0 0 200 200">
               <defs>

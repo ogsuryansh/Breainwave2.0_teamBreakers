@@ -1,4 +1,6 @@
 import express from 'express'
+import mongoose from 'mongoose'
+import crypto from 'crypto'
 import User from '../models/User.js'
 import { register, login, logout, getMe } from '../controllers/authController.js'
 import { protect } from '../middleware/auth.js'
@@ -11,7 +13,19 @@ router.post('/logout', protect, logout)
 router.get('/me', protect, getMe)
 
 router.get('/auth0-login', (req, res) => {
-    res.oidc.login({
+    // Check if Auth0 is properly configured
+    const isAuth0Configured = process.env.AUTH0_ISSUER_BASE_URL &&
+        !process.env.AUTH0_ISSUER_BASE_URL.includes('your-domain') &&
+        process.env.AUTH0_CLIENT_ID !== 'your_auth0_client_id';
+
+    // If Auth0 is not configured, redirect to mock login
+    if (!isAuth0Configured || !req.oidc || !req.oidc.login) {
+        console.log('🔄 Redirecting to mock login (Auth0 not configured)')
+        return res.redirect('/api/auth/mock-login')
+    }
+
+    // Use req.oidc (not res.oidc)
+    return req.oidc.login({
         returnTo: '/api/auth/callback',
         authorizationParams: {
             redirect_uri: `${process.env.AUTH0_BASE_URL}/api/auth/callback`
@@ -69,6 +83,33 @@ router.get('/callback', async (req, res) => {
 // MOCK LOGIN for Development when Auth0 is not configured
 router.get('/mock-login', async (req, res) => {
     try {
+        // Check if MongoDB is connected
+        const isDbConnected = mongoose.connection.readyState === 1;
+
+        if (!isDbConnected) {
+            console.warn('⚠️  MongoDB not connected. Using in-memory mock login.');
+
+            // Generate a temporary token without DB
+            const tempToken = crypto.randomBytes(32).toString('hex');
+            const mockUser = {
+                id: 'temp_dev_user_123',
+                name: 'Developer Mode (No DB)',
+                email: 'dev_user@example.com',
+                username: 'dev_hero',
+                avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=Developer'
+            };
+
+            res.cookie('authToken', tempToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+                sameSite: 'strict'
+            });
+
+            return res.redirect(`${process.env.FRONTEND_URL}?token=${tempToken}&user=${encodeURIComponent(JSON.stringify(mockUser))}`);
+        }
+
+        // Normal DB-backed mock login
         const mockEmail = 'dev_user@example.com'
 
         let user = await User.findOne({ email: mockEmail })
@@ -78,7 +119,7 @@ router.get('/mock-login', async (req, res) => {
                 email: mockEmail,
                 name: 'Developer Mode',
                 username: 'dev_hero',
-                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix'
+                avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=Developer'
             })
         }
 
